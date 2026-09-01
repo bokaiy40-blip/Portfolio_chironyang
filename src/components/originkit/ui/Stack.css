@@ -1,0 +1,39 @@
+.stack-container {
+  position:relative;
+  width:100%;
+  height:100%;
+  perspective:600px;
+}
+
+.card-rotate,
+.card-rotate-disabled {
+  position:absolute;
+  width:100%;
+  height:100%;
+}
+
+.card-rotate { cursor:grab; }
+.card-rotate-disabled { cursor:pointer; }
+
+.card {
+  display:flex;
+  width:100%;
+  height:100%;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  border-radius:0;
+  background:var(--ink-bg,#303a2d);
+  box-shadow:0 16px 30px rgb(0 0 0 / 18%);
+}
+
+.card img {
+  display:block;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+  object-fit:cover;
+}
+

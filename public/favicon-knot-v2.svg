@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Knot mark</title>
+  <desc id="desc">Interlocking circular knot mark</desc>
+  <defs>
+    <clipPath id="rounded-tab">
+      <rect width="64" height="64" rx="13"/>
+    </clipPath>
+    <filter id="black-line-mark" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="
+        0 0 0 0 0
+        0 0 0 0 0
+        0 0 0 0 0
+        0.2126 0.7152 0.0722 0 0"/>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="13" fill="#d2ff00"/>
+  <image href="/favicon-knot-source.png" x="4" y="8" width="56" height="48" preserveAspectRatio="xMidYMid meet" filter="url(#black-line-mark)" clip-path="url(#rounded-tab)"/>
+</svg>
+

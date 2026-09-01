@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">K</title>
+  <desc id="desc">K monogram</desc>
+  <rect width="64" height="64" rx="13" fill="#d4f000"/>
+  <path d="M16 14h9v14.7L39.2 14h10.3L34 31.2 50 50H39.4L25 34.8V50h-9V14Z" fill="#050505"/>
+</svg>
+

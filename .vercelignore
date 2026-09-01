@@ -1,0 +1,8 @@
+node_modules
+dist
+.originkit
+tools
+prepare-education-logos.py
+_private
+*.zip
+
