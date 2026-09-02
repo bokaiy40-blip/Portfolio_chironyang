@@ -2458,6 +2458,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   #background .education-brand-row {
     min-height:0;
     padding:22px 20px;
+    display:block;
     align-items:flex-start;
     flex-wrap:wrap;
   }
@@ -2473,6 +2474,10 @@ html.is-on-dark-section #topography-background .topography-canvas {
 
   #background .education-brand-divider {
     display:none;
+  }
+
+  #background .education-brand + .education-brand {
+    margin-top:18px;
   }
 
   #background .education-panel-columns {
