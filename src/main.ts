@@ -23,17 +23,17 @@ const skillCards = [
   { number: '04', title: '内容与表达', image: '/skills/skill-04.svg', body: '用视频把复杂的技术和团队活动讲得更容易被看见，也在持续训练对节奏、画面与信息层级的判断。', tags: ['PR', '剪映', '抖音运营', '56.6 万单视频播放'] },
 ]
 const socialVideoItems = [
-  { src: '/socials/social-01.mp4', alt: '社交动态视频 01' },
-  { src: '/socials/social-02.mp4', alt: '社交动态视频 02' },
-  { src: '/socials/social-03.mp4', alt: '社交动态视频 03' },
-  { src: '/socials/social-04.mp4', alt: '社交动态视频 04' },
-  { src: '/socials/social-05.mp4', alt: '社交动态视频 05' },
+  { src: '/socials/social-01.mp4', webm: '/socials/social-01.webm', poster: '/socials/social-01-poster.webp', alt: '社交动态视频 01' },
+  { src: '/socials/social-02.mp4', webm: '/socials/social-02.webm', poster: '/socials/social-02-poster.webp', alt: '社交动态视频 02' },
+  { src: '/socials/social-03.mp4', webm: '/socials/social-03.webm', poster: '/socials/social-03-poster.webp', alt: '社交动态视频 03' },
+  { src: '/socials/social-04.mp4', webm: '/socials/social-04.webm', poster: '/socials/social-04-poster.webp', alt: '社交动态视频 04' },
+  { src: '/socials/social-05.mp4', webm: '/socials/social-05.webm', poster: '/socials/social-05-poster.webp', alt: '社交动态视频 05' },
 ]
 const socialIconItems = [
-  { src: '/socials/icons/social-icon-01.png', alt: '网球拍图标' },
-  { src: '/socials/icons/social-icon-02.png', alt: '游戏手柄图标' },
-  { src: '/socials/icons/social-icon-03.png', alt: '相机图标' },
-  { src: '/socials/icons/social-icon-04.png', alt: '网球拍图标' },
+  { src: '/socials/icons/social-icon-01.webp', alt: '网球拍图标' },
+  { src: '/socials/icons/social-icon-02.webp', alt: '游戏手柄图标' },
+  { src: '/socials/icons/social-icon-03.webp', alt: '相机图标' },
+  { src: '/socials/icons/social-icon-04.webp', alt: '网球拍图标' },
 ]
 const socialFollowItems = [
   { label: '抖音', href: 'https://www.douyin.com/user/MS4wLjABAAAAmwtctMoK-AY3bO01VHeSfO75N34v06kV4ygCd4y1O-Q?from_tab_name=main' },
@@ -51,15 +51,15 @@ const menuItems: StaggeredMenuItem[] = [
   { label: '动态', english: 'SOCIALS', ariaLabel: '查看社交动态', link: '#socials' },
 ]
 const photoWallItems = [
-  { src: '/hobbies/photography/photo-wall/11-seaside-triptych.jpg', alt: '海湾与行走中的身影' },
-  { src: '/hobbies/photography/photo-wall/12-mount-fuji.jpg', alt: '富士山与城市天际线' },
-  { src: '/hobbies/photography/photo-wall/13-tokyo-tower-visit.png', alt: '东京塔前的合影' },
-  { src: '/hobbies/photography/photo-wall/14-grass-and-footsteps.jpg', alt: '草地上的脚步' },
-  { src: '/hobbies/photography/photo-wall/15-ginkgo-autumn.jpg', alt: '银杏树下的秋日长椅' },
-  { src: '/hobbies/photography/photo-wall/16-air-show.jpg', alt: '飞行表演与彩色烟迹' },
-  { src: '/hobbies/photography/photo-wall/17-kyoto-backstreet.jpg', alt: '京都街巷与电线' },
-  { src: '/hobbies/photography/photo-wall/18-tea-and-light.jpg', alt: '茶与灯光' },
-  { src: '/hobbies/photography/10-大连夜景.jpg', alt: '大连夜晚的城市道路与海湾' },
+  { src: '/hobbies/photography/photo-wall/11-seaside-triptych.webp', alt: '海湾与行走中的身影' },
+  { src: '/hobbies/photography/photo-wall/12-mount-fuji.webp', alt: '富士山与城市天际线' },
+  { src: '/hobbies/photography/photo-wall/13-tokyo-tower-visit.webp', alt: '东京塔前的合影' },
+  { src: '/hobbies/photography/photo-wall/14-grass-and-footsteps.webp', alt: '草地上的脚步' },
+  { src: '/hobbies/photography/photo-wall/15-ginkgo-autumn.webp', alt: '银杏树下的秋日长椅' },
+  { src: '/hobbies/photography/photo-wall/16-air-show.webp', alt: '飞行表演与彩色烟迹' },
+  { src: '/hobbies/photography/photo-wall/17-kyoto-backstreet.webp', alt: '京都街巷与电线' },
+  { src: '/hobbies/photography/photo-wall/18-tea-and-light.webp', alt: '茶与灯光' },
+  { src: '/hobbies/photography/10-大连夜景.webp', alt: '大连夜晚的城市道路与海湾' },
 ]
 const yoyoHobbyMarkup = `
   <article class="hobby-editorial-yoyo">
@@ -72,31 +72,31 @@ const yoyoHobbyMarkup = `
     <div class="hobby-yoyo-gallery-layout">
       <div class="hobby-yoyo-media hobby-yoyo-media--feature">
         <span class="hobby-yoyo-media-caption">3舍231, DUT</span>
-        <img src="/hobbies/yo-yo/01-desk-yoyo.jpg" alt="桌面上的悠悠球与学习空间" loading="lazy" draggable="false" />
+        <img data-src="/hobbies/yo-yo/01-desk-yoyo.webp" alt="桌面上的悠悠球与学习空间" loading="lazy" decoding="async" draggable="false" />
       </div>
       <div class="hobby-yoyo-media hobby-yoyo-media--video-one">
         <span class="hobby-yoyo-media-caption">Baicheng, 2023</span>
-        <video data-src="/hobbies/yo-yo/video-01.mp4" autoplay muted loop playsinline preload="metadata" aria-label="悠悠球动作视频一"></video>
+        <video data-src="/hobbies/yo-yo/video-01.mp4" data-webm="/hobbies/yo-yo/video-01.webm" poster="/hobbies/yo-yo/video-01-poster.webp" autoplay muted loop playsinline preload="none" aria-label="悠悠球动作视频一"></video>
       </div>
       <div class="hobby-yoyo-media hobby-yoyo-media--meetup">
         <span class="hobby-yoyo-media-caption">With Kengo, Nir Tokyo</span>
-        <img src="/hobbies/yo-yo/03-yoyo-meetup.jpg" alt="悠悠球交流活动合影" loading="lazy" draggable="false" />
+        <img data-src="/hobbies/yo-yo/03-yoyo-meetup.webp" alt="悠悠球交流活动合影" loading="lazy" decoding="async" draggable="false" />
       </div>
       <div class="hobby-yoyo-media hobby-yoyo-media--video-two">
         <span class="hobby-yoyo-media-caption">Shot by Kengo, 2024</span>
-        <video data-src="/hobbies/yo-yo/video-02.mp4" autoplay muted loop playsinline preload="metadata" aria-label="悠悠球动作视频二"></video>
+        <video data-src="/hobbies/yo-yo/video-02.mp4" data-webm="/hobbies/yo-yo/video-02.webm" poster="/hobbies/yo-yo/video-02-poster.webp" autoplay muted loop playsinline preload="none" aria-label="悠悠球动作视频二"></video>
       </div>
     </div>
   </figure>
 `
 const socialFollowLabel = (label: string, className: string, ariaHidden = false) => `<span class="${className}"${ariaHidden ? ' aria-hidden="true"' : ''}>${[...label].map((character) => `<span>${character}</span>`).join('')}</span>`
-const brandNikonUrl = new URL('./assets/brands/brand-nikon-transparent.png', import.meta.url).href
-const brandCetcUrl = new URL('./assets/brands/brand-cetc-transparent.png', import.meta.url).href
-const brandCorporateSymbolUrl = new URL('./assets/brands/brand-corporate-symbol-transparent.png', import.meta.url).href
-const brandBambuLabUrl = new URL('./assets/brands/brand-bambu-lab-transparent.png', import.meta.url).href
-const brandDjiUrl = new URL('./assets/brands/brand-dji-transparent.png', import.meta.url).href
-const brandYoyorecreationUrl = new URL('./assets/brands/brand-yoyorecreation-transparent.png', import.meta.url).href
-const brandYonexUrl = new URL('./assets/brands/brand-yonex-transparent.png', import.meta.url).href
+const brandNikonUrl = new URL('./assets/brands/brand-nikon-transparent.webp', import.meta.url).href
+const brandCetcUrl = new URL('./assets/brands/brand-cetc-transparent.webp', import.meta.url).href
+const brandCorporateSymbolUrl = new URL('./assets/brands/brand-corporate-symbol-transparent.webp', import.meta.url).href
+const brandBambuLabUrl = new URL('./assets/brands/brand-bambu-lab-transparent.webp', import.meta.url).href
+const brandDjiUrl = new URL('./assets/brands/brand-dji-transparent.webp', import.meta.url).href
+const brandYoyorecreationUrl = new URL('./assets/brands/brand-yoyorecreation-transparent.webp', import.meta.url).href
+const brandYonexUrl = new URL('./assets/brands/brand-yonex-transparent.webp', import.meta.url).href
 const logoWallItems = [
   { src: brandNikonUrl, alt: 'Nikon', className: 'logo-nikon' },
   { src: brandCetcUrl, alt: '中国电子科技集团 CETC', className: 'logo-cetc' },
@@ -145,15 +145,15 @@ app.innerHTML = `
         <div class="face front-face" id="front-face"><div class="hero-content"><h1 class="hero-title english-title"><span class="title-base">HELLO, I'M</span><span class="title-signature english-signature">Chiron</span></h1><p class="hero-subtitle">EMBEDDED CONTROL / ROBOTICS VISION / AI SENSING</p></div><a class="resume-download-button" href="/yang-bokai-resume.docx" download="杨博开简历.docx" aria-label="下载简历"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="resume-download-base" d="M6 21h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /><path class="resume-download-arrow" d="M12 3v14m0 0 5-5m-5 5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg><span class="resume-download-label"><span class="resume-span-mother"><span>下</span><span>载</span><span>简</span><span>历</span></span><span class="resume-span-mother2" aria-hidden="true"><span>下</span><span>载</span><span>简</span><span>历</span></span></span></a><p class="explore-prompt">MOVE / CLICK</p>
           <div class="inverted-layer" id="inverted-layer" aria-hidden="true"><div class="hero-content"><p class="hero-title inverted-title"><span class="title-base">你好，</span><span class="title-middle">我是</span><span class="title-signature">杨博开</span></p><p class="hero-subtitle inverted-subtitle">嵌入式控制 / 机器人视觉 / AI 感知</p></div><p class="explore-prompt inverted-explore-prompt">MOVE / CLICK</p></div>
         </div>
-        <div class="face about-face" id="about-face"><div class="about-expand-track" id="about-expand-track"><div class="about-expand-stage" id="about-expand-stage"><div class="about-expand-frame" id="about-expand-frame"><img class="about-expand-media" id="about-expand-media" src="/about-background.jpg" alt="杨博开在城市夜景前的照片" loading="lazy" decoding="async" draggable="false" /><div class="about-expand-scrim" id="about-expand-scrim"></div><div class="about-expand-overlay" id="about-expand-overlay"><div class="about-reference-head"><span class="about-reference-brand">CHIRON</span><button class="about-reference-menu" id="about-return-button" type="button" aria-label="返回首页"><span></span><span></span></button><div class="about-reference-side"><img class="profile-image" src="/profile.png" alt="杨博开证件照" /><button class="about-reference-contact" type="button" aria-label="联系我">联系我</button></div></div><div class="about-content-block"><div class="about-heading-row"><div><div class="eyebrow about-reveal-target" data-about-reveal="PROFILE / 01"></div><div class="about-title-reveal about-reveal-target" data-about-reveal="关于我"></div></div></div><div class="about-layout"><div class="about-copy"><div class="about-copy-reveal about-reveal-target" data-about-reveal="我是大连理工大学电子信息工程专业本科生，正在把嵌入式控制、机器人视觉和 AI 感知串成一条可以落地的技术路径。"></div><div class="about-copy-reveal about-reveal-target" data-about-reveal="我喜欢从真实的系统问题出发：让传感器看懂环境，让机械臂沿着规划路径准确移动，也让一块电路板和一段代码在现场可靠工作。"></div></div><div class="about-facts"><div><div class="about-fact-label about-reveal-target" data-about-reveal="所在地"></div><div class="about-fact-value about-reveal-target" data-about-reveal="大连 / 中国"></div></div><div><div class="about-fact-label about-reveal-target" data-about-reveal="方向"></div><div class="about-fact-value about-reveal-target" data-about-reveal="嵌入式 · 机器人"></div></div><div><div class="about-fact-label about-reveal-target" data-about-reveal="状态"></div><div class="about-fact-value about-reveal-target" data-about-reveal="2023—2027 在校"></div></div></div></div><div class="signature about-reveal-target" data-about-reveal="YANG/BOKAI · BUILDING SYSTEMS THAT MOVE"></div></div></div></div><div class="about-expand-title" id="about-expand-title">关于我</div><div class="about-expand-hint" id="about-expand-hint">SCROLL / EXPAND</div></div></div></div>
+        <div class="face about-face" id="about-face"><div class="about-expand-track" id="about-expand-track"><div class="about-expand-stage" id="about-expand-stage"><div class="about-expand-frame" id="about-expand-frame"><img class="about-expand-media" id="about-expand-media" data-src="/about-background.webp" data-defer-until-flip="true" alt="杨博开在城市夜景前的照片" decoding="async" draggable="false" /><div class="about-expand-scrim" id="about-expand-scrim"></div><div class="about-expand-overlay" id="about-expand-overlay"><div class="about-reference-head"><span class="about-reference-brand">CHIRON</span><button class="about-reference-menu" id="about-return-button" type="button" aria-label="返回首页"><span></span><span></span></button><div class="about-reference-side"><img class="profile-image" src="/profile.webp" alt="杨博开证件照" loading="lazy" decoding="async" /><button class="about-reference-contact" type="button" aria-label="联系我">联系我</button></div></div><div class="about-content-block"><div class="about-heading-row"><div><div class="eyebrow about-reveal-target" data-about-reveal="PROFILE / 01"></div><div class="about-title-reveal about-reveal-target" data-about-reveal="关于我"></div></div></div><div class="about-layout"><div class="about-copy"><div class="about-copy-reveal about-reveal-target" data-about-reveal="我是大连理工大学电子信息工程专业本科生，正在把嵌入式控制、机器人视觉和 AI 感知串成一条可以落地的技术路径。"></div><div class="about-copy-reveal about-reveal-target" data-about-reveal="我喜欢从真实的系统问题出发：让传感器看懂环境，让机械臂沿着规划路径准确移动，也让一块电路板和一段代码在现场可靠工作。"></div></div><div class="about-facts"><div><div class="about-fact-label about-reveal-target" data-about-reveal="所在地"></div><div class="about-fact-value about-reveal-target" data-about-reveal="大连 / 中国"></div></div><div><div class="about-fact-label about-reveal-target" data-about-reveal="方向"></div><div class="about-fact-value about-reveal-target" data-about-reveal="嵌入式 · 机器人"></div></div><div><div class="about-fact-label about-reveal-target" data-about-reveal="状态"></div><div class="about-fact-value about-reveal-target" data-about-reveal="2023—2027 在校"></div></div></div></div><div class="signature about-reveal-target" data-about-reveal="YANG/BOKAI · BUILDING SYSTEMS THAT MOVE"></div></div></div></div><div class="about-expand-title" id="about-expand-title">关于我</div><div class="about-expand-hint" id="about-expand-hint">SCROLL / EXPAND</div></div></div></div>
       </div>
     </section>
 
     <section id="skills" class="site-section white-section"><div class="section-inner"><div class="section-heading reveal"><div><p class="eyebrow">CAPABILITY / 02</p><h2>能力系统</h2></div><p class="section-note">把软硬件、感知与表达放在同一张工作台上。</p></div><div class="skill-grid">${skillsMarkup}</div></div></section>
-    <section id="practice" class="site-section ink-section practice-wall-section" data-theme="dark"><div class="section-inner practice-wall-inner"><div class="practice-wall-heading reveal"><div><p class="eyebrow chapter-eyebrow">PRACTICE / 03</p><h2>实践档案</h2></div><p class="section-note">从实习、项目到专利，把每一次真实场景里的尝试，留下可以被看见的轨迹。</p></div><div class="practice-wall-list" data-practice-wall-list><article class="practice-wall-row" tabindex="0" data-practice-index="01" data-practice-image="/practice/research-institute.png"><span class="practice-wall-number">01</span><div class="practice-wall-copy"><span class="practice-wall-kicker">INTERNSHIP / 2024.07—2024.09</span><h3>中国电子科技集团第十四研究所</h3><p>嵌入式机电控制实习生 · 南京</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article><article class="practice-wall-row" tabindex="0" data-practice-index="02" data-practice-image="/practice/robotics-project.png"><span class="practice-wall-number">02</span><div class="practice-wall-copy"><span class="practice-wall-kicker">INDEPENDENT PROJECT / 2024.04—2025.04</span><h3>基于视觉的复合机器人操作技术</h3><p>校级大创项目 · 项目负责人</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article><article class="practice-wall-row" tabindex="0" data-practice-index="03" data-practice-image="/practice/patent-notice.png"><span class="practice-wall-number">03</span><div class="practice-wall-copy"><span class="practice-wall-kicker">INVENTION PATENT / 2024.11</span><h3>近程防空雷达超低空试验航路优化</h3><p>发明专利 · 第二作者</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article><article class="practice-wall-row" tabindex="0" data-practice-index="04" data-practice-image="/practice/handwriting-recognition.jpg"><span class="practice-wall-number">04</span><div class="practice-wall-copy"><span class="practice-wall-kicker">SUMMER SCHOOL / 2025.08</span><h3>手写数字识别系统</h3><p>香港中文大学内地高校暑期学校</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article></div><div class="practice-wall-preview" data-practice-preview aria-hidden="true"><div class="practice-wall-preview-label">VIEW / <span>01</span></div><img src="/practice/research-institute.png" alt="" draggable="false" /></div></div></section>
+    <section id="practice" class="site-section ink-section practice-wall-section" data-theme="dark"><div class="section-inner practice-wall-inner"><div class="practice-wall-heading reveal"><div><p class="eyebrow chapter-eyebrow">PRACTICE / 03</p><h2>实践档案</h2></div><p class="section-note">从实习、项目到专利，把每一次真实场景里的尝试，留下可以被看见的轨迹。</p></div><div class="practice-wall-list" data-practice-wall-list><article class="practice-wall-row" tabindex="0" data-practice-index="01" data-practice-image="/practice/research-institute.webp"><span class="practice-wall-number">01</span><div class="practice-wall-copy"><span class="practice-wall-kicker">INTERNSHIP / 2024.07—2024.09</span><h3>中国电子科技集团第十四研究所</h3><p>嵌入式机电控制实习生 · 南京</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article><article class="practice-wall-row" tabindex="0" data-practice-index="02" data-practice-image="/practice/robotics-project.webp"><span class="practice-wall-number">02</span><div class="practice-wall-copy"><span class="practice-wall-kicker">INDEPENDENT PROJECT / 2024.04—2025.04</span><h3>基于视觉的复合机器人操作技术</h3><p>校级大创项目 · 项目负责人</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article><article class="practice-wall-row" tabindex="0" data-practice-index="03" data-practice-image="/practice/patent-notice.webp"><span class="practice-wall-number">03</span><div class="practice-wall-copy"><span class="practice-wall-kicker">INVENTION PATENT / 2024.11</span><h3>近程防空雷达超低空试验航路优化</h3><p>发明专利 · 第二作者</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article><article class="practice-wall-row" tabindex="0" data-practice-index="04" data-practice-image="/practice/handwriting-recognition.webp"><span class="practice-wall-number">04</span><div class="practice-wall-copy"><span class="practice-wall-kicker">SUMMER SCHOOL / 2025.08</span><h3>手写数字识别系统</h3><p>香港中文大学内地高校暑期学校</p></div><span class="practice-wall-arrow" aria-hidden="true">↗</span></article></div><div class="practice-wall-preview" data-practice-preview aria-hidden="true"><div class="practice-wall-preview-label">VIEW / <span>01</span></div><img alt="" decoding="async" draggable="false" /></div></div></section>
     <section id="background" class="site-section white-section"><div class="section-inner education-layout"><div class="education-intro section-heading reveal"><div><p class="eyebrow">BACKGROUND / 04</p><h2>教育背景</h2></div><p class="section-note">构建扎实的电子信息理论基础，<br />聚焦通信、嵌入式与智能技术方向<br />的学习与实践。</p><p class="education-intro-en">BUILDING A SOLID FOUNDATION IN ELECTRONIC<br />INFORMATION THEORY, FOCUSING ON COMMUNICATION,<br />EMBEDDED SYSTEMS, AND INTELLIGENT TECHNOLOGIES.</p></div><article class="education-panel reveal"><header class="education-brand-row"><div class="education-brand education-brand-dut"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="2.6" /><circle cx="32" cy="32" r="18" fill="none" stroke="currentColor" stroke-width="2" /><path d="M22 33c6-7 14-7 20 0M25 39c4-4 10-4 14 0M32 17v24M21 28c7 3 15 3 22 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" /><path d="M27 45h10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" /></svg><div><strong>大连理工大学</strong><span>DALIAN UNIVERSITY OF TECHNOLOGY</span></div></div><span class="education-brand-divider" aria-hidden="true"></span><div class="education-brand education-brand-school"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="2.6" /><path d="m32 14 16 9-16 9-16-9 16-9Zm-10 15v12l10 6 10-6V29M26 35h12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" /><path d="M18 48h28" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" /></svg><div><strong>信息与通信工程学院</strong><span>School of Information and<br />Communication Engineering</span></div></div></header><div class="education-panel-columns"><section class="education-academic"><div class="education-column-title"><strong>学术信息</strong><span>ACADEMIC INFORMATION</span></div><div class="education-facts"><div class="education-fact"><span class="education-fact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 9 9-5 9 5-9 5-9-5Zm4 2v5c3 2 7 2 10 0v-5" /></svg></span><span class="education-fact-label">学校</span><strong>大连理工大学（985）</strong></div><div class="education-fact"><span class="education-fact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="1" /><path d="M9 8h6M9 12h6M9 16h3" /></svg></span><span class="education-fact-label">专业</span><strong>电子信息工程（本科）</strong></div><div class="education-fact"><span class="education-fact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2" /><path d="M8 3v4M16 3v4M4 10h16" /></svg></span><span class="education-fact-label">时间</span><strong>2023.09 — 2027.06</strong></div></div><div class="education-ranking"><div class="education-rank-main"><span>专业排名</span><strong>70<small>/ 207</small></strong><em>（33.82%）</em></div><div class="education-rank-side"><div><span>均分</span><strong>83.3<small> / 100</small></strong></div><div class="education-language-scores"><span><i>▣</i> CET-4<strong>554</strong></span><span><i>▣</i> CET-6<strong>477</strong></span></div></div></div><div class="education-courses"><span class="education-courses-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5C6.5 4 9.5 4.5 12 7v13c-2.5-2.5-5.5-3-8-1.5v-13ZM20 5.5C17.5 4 14.5 4.5 12 7v13c2.5-2.5 5.5-3 8-1.5v-13Z" /></svg></span><div><strong>主修课程</strong><p>信号与系统 / 数字信号处理 / 电磁场与电磁波 /<br />计算机原理 / 随机信号分析</p></div></div></section><section class="education-positions"><div class="education-column-title"><strong>任职经历</strong><span>POSITIONS</span></div><div class="education-role-list"><article class="education-role"><span class="education-role-dot" aria-hidden="true"></span><div><time>2023.09 — 2024.09</time><h3>机电2301班 宣传委员</h3></div><span class="education-role-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="14" cy="14" r="5" /><circle cx="27" cy="16" r="4" /><path d="M5 31c0-5 4-8 9-8s9 3 9 8M21 31c0-4 3-7 7-7 4 0 7 3 7 7" /></svg></span></article><article class="education-role"><span class="education-role-dot" aria-hidden="true"></span><div><time>2024.10 — 今</time><h3>未来技术学院格斗机器人公社<br />副社长</h3></div><span class="education-role-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="14" cy="14" r="5" /><circle cx="27" cy="16" r="4" /><path d="M5 31c0-5 4-8 9-8s9 3 9 8M21 31c0-4 3-7 7-7 4 0 7 3 7 7" /></svg></span></article><article class="education-role"><span class="education-role-dot" aria-hidden="true"></span><div><time>2025.04 — 今</time><h3>伯川书院“AI创”机器人社团<br />副社长</h3></div><span class="education-role-icon" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="14" cy="14" r="5" /><circle cx="27" cy="16" r="4" /><path d="M5 31c0-5 4-8 9-8s9 3 9 8M21 31c0-4 3-7 7-7 4 0 7 3 7 7" /></svg></span></article></div></section></div></article></div></section>
-    <section id="competitions" class="site-section white-section competition-section"><div class="section-inner"><div class="section-heading reveal"><div><p class="eyebrow">COMPETITIONS / 05</p><h2>竞赛奖项</h2></div><p class="section-note">四次站上赛场，把机器人、物联网、数字设计与嵌入式系统做成可以被看见的成果。</p></div><div class="competition-grid"><article class="competition-card reveal"><div class="competition-media"><img src="/competitions/ai-robotics.jpg" alt="中国机器人及人工智能大赛团队合影" loading="lazy" /><span class="competition-index">01</span></div><div class="competition-info"><div class="card-topline"><span>ROBOTICS / AI</span><span>2024.08</span></div><h3>中国机器人及人工智能大赛</h3><strong class="competition-award">全国一等奖</strong><p>围绕机器人系统与人工智能应用完成竞赛项目，把感知、控制和协作落到真实场景。</p></div></article><article class="competition-card reveal"><div class="competition-media"><img src="/competitions/iot-design.jpg" alt="全国大学生物联网设计竞赛现场" loading="lazy" /><span class="competition-index">02</span></div><div class="competition-info"><div class="card-topline"><span>INTERNET OF THINGS</span><span>2026.08</span></div><h3>全国大学生物联网设计竞赛</h3><strong class="competition-award">全国二等奖</strong><p>从硬件连接、数据采集到系统联调，持续练习把物联网方案做得稳定、清晰并可运行。</p></div></article><article class="competition-card reveal"><div class="competition-media"><img src="/competitions/3d-design.jpg" alt="全国三维数字化创新设计大赛现场" loading="lazy" /><span class="competition-index">03</span></div><div class="competition-info"><div class="card-topline"><span>3D DIGITAL DESIGN</span><span>2025.10</span></div><h3>全国三维数字化创新设计大赛</h3><strong class="competition-award">全国三等奖</strong><p>用三维设计、数字化表达和现场展示，把结构想法转译成更直观的方案。</p></div></article><article class="competition-card reveal"><div class="competition-media"><img src="/competitions/embedded.jpg" alt="全国大学生嵌入式芯片与系统设计竞赛现场" loading="lazy" /><span class="competition-index">04</span></div><div class="competition-info"><div class="card-topline"><span>EMBEDDED SYSTEMS</span><span>2026.08</span></div><h3>全国大学生嵌入式芯片与系统<br />设计竞赛</h3><strong class="competition-award">全国三等奖</strong><p>围绕芯片、系统与工程实现展开实践，在软硬件协同中不断靠近可靠运行。</p></div></article></div></div></section>
-    <section id="hobbies" class="site-section ink-section hobby-section" data-theme="dark" aria-label="摄影与旅游"><div class="hobby-scroll-stage"><div class="hobby-scroll-track hobby-editorial-track"><div class="section-heading light reveal hobby-original-heading"><div><p class="eyebrow">HOBBIES / 06</p><h2>爱好</h2></div><p class="section-note">在技术之外，保留对画面、旅行、山野与运动的好奇。</p></div><article class="hobby-editorial-intro"><p class="hobby-editorial-meta">HOBBIES / 02</p><h2 class="hobby-editorial-title"><span class="hobby-editorial-cn">摄影</span><span class="hobby-editorial-en">PHOTOGRAPHY<br />&amp; FILM</span></h2><p class="hobby-editorial-body">用镜头记录光线、空间和一瞬间的秩序。把观察变成另一种表达方式。</p></article><figure class="hobby-editorial-photo hobby-editorial-photo--one hobby-editorial-stack-figure"><figcaption>DALIAN, 2025</figcaption><div id="photography-stack-mount" class="photography-stack-mount" role="group" aria-label="摄影照片墙"></div></figure><article class="hobby-editorial-travel"><p class="hobby-editorial-meta">ROUTES / 02</p><h2 class="hobby-editorial-title"><span class="hobby-editorial-cn">旅游</span><span class="hobby-editorial-en">EXPLORING<br />THE WORLD</span></h2><p class="hobby-editorial-body">把城市、街道和陌生的风景收进自己的行走路线，在移动中保持对世界的观察。</p></article><figure class="hobby-editorial-photo hobby-editorial-photo--two"><figcaption>HONG KONG, 2025</figcaption><img src="/hobbies/photography/09-香港.jpg" alt="香港夏日海湾景色" loading="lazy" draggable="false" /></figure><figure class="hobby-editorial-photo hobby-editorial-photo--three"><figcaption>TOKYO, 2025</figcaption><img src="/hobbies/photography/03-街头.jpg" alt="东京街头行人" loading="lazy" draggable="false" /></figure><figure class="hobby-editorial-photo hobby-editorial-photo--four"><figcaption>TOKYO, 2025</figcaption><img src="/hobbies/photography/02-东京塔.jpg" alt="东京塔城市风景" loading="lazy" draggable="false" /></figure><figure class="hobby-editorial-photo hobby-editorial-photo--five"><figcaption>SUZHOU, 2025</figcaption><img src="/hobbies/photography/01-苏州.jpg" alt="苏州春日街景" loading="lazy" draggable="false" /></figure><p class="hobby-editorial-footer">SCROLL / EXPLORE <span>02 / 02</span></p></div></div></section>
+    <section id="competitions" class="site-section white-section competition-section"><div class="section-inner"><div class="section-heading reveal"><div><p class="eyebrow">COMPETITIONS / 05</p><h2>竞赛奖项</h2></div><p class="section-note">四次站上赛场，把机器人、物联网、数字设计与嵌入式系统做成可以被看见的成果。</p></div><div class="competition-grid"><article class="competition-card reveal"><div class="competition-media"><img data-src="/competitions/ai-robotics.webp" alt="中国机器人及人工智能大赛团队合影" loading="lazy" decoding="async" /><span class="competition-index">01</span></div><div class="competition-info"><div class="card-topline"><span>ROBOTICS / AI</span><span>2024.08</span></div><h3>中国机器人及人工智能大赛</h3><strong class="competition-award">全国一等奖</strong><p>围绕机器人系统与人工智能应用完成竞赛项目，把感知、控制和协作落到真实场景。</p></div></article><article class="competition-card reveal"><div class="competition-media"><img data-src="/competitions/iot-design.webp" alt="全国大学生物联网设计竞赛现场" loading="lazy" decoding="async" /><span class="competition-index">02</span></div><div class="competition-info"><div class="card-topline"><span>INTERNET OF THINGS</span><span>2026.08</span></div><h3>全国大学生物联网设计竞赛</h3><strong class="competition-award">全国二等奖</strong><p>从硬件连接、数据采集到系统联调，持续练习把物联网方案做得稳定、清晰并可运行。</p></div></article><article class="competition-card reveal"><div class="competition-media"><img data-src="/competitions/3d-design.webp" alt="全国三维数字化创新设计大赛现场" loading="lazy" decoding="async" /><span class="competition-index">03</span></div><div class="competition-info"><div class="card-topline"><span>3D DIGITAL DESIGN</span><span>2025.10</span></div><h3>全国三维数字化创新设计大赛</h3><strong class="competition-award">全国三等奖</strong><p>用三维设计、数字化表达和现场展示，把结构想法转译成更直观的方案。</p></div></article><article class="competition-card reveal"><div class="competition-media"><img data-src="/competitions/embedded.webp" alt="全国大学生嵌入式芯片与系统设计竞赛现场" loading="lazy" decoding="async" /><span class="competition-index">04</span></div><div class="competition-info"><div class="card-topline"><span>EMBEDDED SYSTEMS</span><span>2026.08</span></div><h3>全国大学生嵌入式芯片与系统<br />设计竞赛</h3><strong class="competition-award">全国三等奖</strong><p>围绕芯片、系统与工程实现展开实践，在软硬件协同中不断靠近可靠运行。</p></div></article></div></div></section>
+    <section id="hobbies" class="site-section ink-section hobby-section" data-theme="dark" aria-label="摄影与旅游"><div class="hobby-scroll-stage"><div class="hobby-scroll-track hobby-editorial-track"><div class="section-heading light reveal hobby-original-heading"><div><p class="eyebrow">HOBBIES / 06</p><h2>爱好</h2></div><p class="section-note">在技术之外，保留对画面、旅行、山野与运动的好奇。</p></div><article class="hobby-editorial-intro"><p class="hobby-editorial-meta">HOBBIES / 02</p><h2 class="hobby-editorial-title"><span class="hobby-editorial-cn">摄影</span><span class="hobby-editorial-en">PHOTOGRAPHY<br />&amp; FILM</span></h2><p class="hobby-editorial-body">用镜头记录光线、空间和一瞬间的秩序。把观察变成另一种表达方式。</p></article><figure class="hobby-editorial-photo hobby-editorial-photo--one hobby-editorial-stack-figure"><figcaption>DALIAN, 2025</figcaption><div id="photography-stack-mount" class="photography-stack-mount" role="group" aria-label="摄影照片墙"></div></figure><article class="hobby-editorial-travel"><p class="hobby-editorial-meta">ROUTES / 02</p><h2 class="hobby-editorial-title"><span class="hobby-editorial-cn">旅游</span><span class="hobby-editorial-en">EXPLORING<br />THE WORLD</span></h2><p class="hobby-editorial-body">把城市、街道和陌生的风景收进自己的行走路线，在移动中保持对世界的观察。</p></article><figure class="hobby-editorial-photo hobby-editorial-photo--two"><figcaption>HONG KONG, 2025</figcaption><img data-src="/hobbies/photography/09-香港.webp" alt="香港夏日海湾景色" loading="lazy" decoding="async" draggable="false" /></figure><figure class="hobby-editorial-photo hobby-editorial-photo--three"><figcaption>TOKYO, 2025</figcaption><img data-src="/hobbies/photography/03-街头.webp" alt="东京街头行人" loading="lazy" decoding="async" draggable="false" /></figure><figure class="hobby-editorial-photo hobby-editorial-photo--four"><figcaption>TOKYO, 2025</figcaption><img data-src="/hobbies/photography/02-东京塔.webp" alt="东京塔城市风景" loading="lazy" decoding="async" draggable="false" /></figure><figure class="hobby-editorial-photo hobby-editorial-photo--five"><figcaption>SUZHOU, 2025</figcaption><img data-src="/hobbies/photography/01-苏州.webp" alt="苏州春日街景" loading="lazy" decoding="async" draggable="false" /></figure><p class="hobby-editorial-footer">SCROLL / EXPLORE <span>02 / 02</span></p></div></div></section>
     <section id="contact" class="contact-section"><div class="contact-transition" aria-hidden="true"><span class="contact-transition-glow contact-transition-glow--edge-left"></span><span class="contact-transition-glow contact-transition-glow--center"></span><span class="contact-transition-glow contact-transition-glow--edge-right"></span></div><div class="contact-shell"><div class="contact-inner contact-card reveal"><p class="eyebrow">CONTACT / 07</p><h2>让我们一起完成<br /><span>每一个心中未遂的奇想</span></h2><div class="contact-row"><a href="mailto:ybk0109@qq.com">ybk0109@qq.com</a><a href="tel:13179065551">131 7906 5551</a><span>吉林省白城市 · 2005.01</span></div><div class="contact-stepper" id="contact-stepper" aria-label="联系信息填写步骤"><div class="contact-stepper-indicators" role="list"><button class="contact-step-indicator is-active" type="button" data-step="1" aria-label="第 1 步" aria-current="step"><span>01</span></button><span class="contact-step-connector" aria-hidden="true"><i></i></span><button class="contact-step-indicator" type="button" data-step="2" aria-label="第 2 步"><span>02</span></button><span class="contact-step-connector" aria-hidden="true"><i></i></span><button class="contact-step-indicator" type="button" data-step="3" aria-label="第 3 步"><span>03</span></button></div><div class="contact-stepper-content"><section class="contact-step is-active" data-step-panel="1"><p class="step-kicker">STEP 01 / CONTACT</p><h3>留下一个联系方式</h3><p class="step-description">邮箱或电话，选择一个就好。</p><div class="contact-methods" role="group" aria-label="联系方式类型"><button class="contact-method is-selected" type="button" data-method="email" aria-pressed="true">邮箱</button><button class="contact-method" type="button" data-method="phone" aria-pressed="false">电话</button></div><label class="contact-input-label" for="contact-value"><span id="contact-value-label">邮箱地址</span><input id="contact-value" type="email" placeholder="name@example.com" autocomplete="email" /></label><p class="contact-step-error" id="contact-step-error" role="alert"></p></section><section class="contact-step" data-step-panel="2"><p class="step-kicker">STEP 02 / FEEDBACK</p><h3>有什么对这个网站的建议吗？</h3><p class="step-description">欢迎告诉我你的第一印象，或者你希望看到的内容。</p><label class="contact-textarea-label" for="contact-suggestion"><span>你的建议</span><textarea id="contact-suggestion" rows="5" placeholder="写下你的想法……"></textarea></label></section><section class="contact-step" data-step-panel="3"><p class="step-kicker">STEP 03 / SENT</p><h3>稍等，我会联系您！</h3><p class="step-description">感谢你的建议。我会通过你留下的联系方式回复你。</p><div class="contact-complete-mark" aria-hidden="true">✓</div></section></div><div class="contact-stepper-footer"><button class="contact-step-back" type="button" disabled>返回</button><button class="contact-step-next" type="button">下一步</button></div></div><div class="contact-footer"><span>YANG/BOKAI</span><span>个人作品集 · 2026</span></div></div></div></section>
   </main>
 `.replace('83.3<small> / 100</small>', '86.9<small> / 100</small>')
@@ -263,8 +263,8 @@ if (photographyStackMount) {
     void loadPhotographyStackModule().then(() => {
       window.setTimeout(() => { void loadPhotographyStack() }, 120)
     })
-  }, { rootMargin: '0px 0px 70% 0px' })
-  photographyObserver.observe(skillsSection)
+  }, { rootMargin: '200px 0px' })
+  photographyObserver.observe(photographyStackMount)
 }
 const hobbyTrack = hobbiesSection.querySelector<HTMLElement>('.hobby-editorial-track')
 const hobbyFooter = hobbiesSection.querySelector<HTMLElement>('.hobby-editorial-footer')
@@ -292,7 +292,7 @@ backgroundSection.insertAdjacentHTML('afterend', logoWallMarkup)
 const socialsSection = document.createElement('section')
 socialsSection.id = 'socials'
 socialsSection.className = 'site-section white-section socials-section'
-socialsSection.innerHTML = `<div class="section-inner socials-inner"><div class="socials-heading"><span class="socials-symbol-rotator" data-socials-symbols aria-hidden="true">${socialIconItems.map((item, index) => `<img class="socials-symbol-icon${index === 0 ? ' is-active' : ''}" src="${item.src}" alt="" draggable="false" />`).join('')}</span><h2 aria-label="WHAT'S UP ON SOCIALS"><span>WHAT'S UP</span><em>ON SOCIALS</em></h2></div><div class="socials-gallery" data-socials-gallery aria-label="社交动态视频"><div class="socials-video-deck">${socialVideoItems.map((item, index) => `<button class="social-video-card${index === 2 ? ' is-selected' : ''}" type="button" data-social-video-index="${index}" aria-label="选择${item.alt}" aria-pressed="${index === 2 ? 'true' : 'false'}"><span class="social-video-card-media"><video data-src="${item.src}" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video></span><span class="social-video-card-index">0${index + 1}</span></button>`).join('')}</div></div><div class="socials-follow" aria-labelledby="socials-follow-title"><h3 id="socials-follow-title">我的社交媒体</h3><p class="socials-follow-caption">Follow Chiron on social media</p><div class="socials-follow-actions" role="group" aria-label="我的社交媒体">${socialFollowItems.map(({ label, href }) => `<a class="social-follow-button" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${label}">${socialFollowLabel(label, 'social-follow-label')}${socialFollowLabel(label, 'social-follow-label-hover', true)}</a>`).join('')}</div></div><div class="socials-footer"><span>CLICK / TO FOCUS</span><span>01—05 / LOOPING VIDEO ARCHIVE</span></div></div>`
+  socialsSection.innerHTML = `<div class="section-inner socials-inner"><div class="socials-heading"><span class="socials-symbol-rotator" data-socials-symbols aria-hidden="true">${socialIconItems.map((item, index) => `<img class="socials-symbol-icon${index === 0 ? ' is-active' : ''}" src="${item.src}" alt="" draggable="false" />`).join('')}</span><h2 aria-label="WHAT'S UP ON SOCIALS"><span>WHAT'S UP</span><em>ON SOCIALS</em></h2></div><div class="socials-gallery" data-socials-gallery aria-label="社交动态视频"><div class="socials-video-deck">${socialVideoItems.map((item, index) => `<button class="social-video-card${index === 2 ? ' is-selected' : ''}" type="button" data-social-video-index="${index}" aria-label="选择${item.alt}" aria-pressed="${index === 2 ? 'true' : 'false'}"><span class="social-video-card-media"><video data-src="${item.src}" data-webm="${item.webm}" poster="${item.poster}" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></span><span class="social-video-card-index">0${index + 1}</span></button>`).join('')}</div></div><div class="socials-follow" aria-labelledby="socials-follow-title"><h3 id="socials-follow-title">我的社交媒体</h3><p class="socials-follow-caption">Follow Chiron on social media</p><div class="socials-follow-actions" role="group" aria-label="我的社交媒体">${socialFollowItems.map(({ label, href }) => `<a class="social-follow-button" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${label}">${socialFollowLabel(label, 'social-follow-label')}${socialFollowLabel(label, 'social-follow-label-hover', true)}</a>`).join('')}</div></div><div class="socials-footer"><span>CLICK / TO FOCUS</span><span>01—05 / LOOPING VIDEO ARCHIVE</span></div></div>`
 mainContent.insertBefore(socialsSection, contactSection)
 socialsSection.querySelector<HTMLElement>('.socials-footer')?.remove()
 
@@ -308,8 +308,18 @@ const setupDeferredMedia = () => {
     const source = video.dataset.src
     if (!source) return
     video.dataset.mediaLoaded = 'true'
-    video.src = source
     video.preload = 'auto'
+    const webmSource = video.dataset.webm
+    if (webmSource) {
+      const sourceElement = document.createElement('source')
+      sourceElement.src = webmSource
+      sourceElement.type = 'video/webm'
+      video.append(sourceElement)
+    }
+    const fallbackSource = document.createElement('source')
+    fallbackSource.src = source
+    fallbackSource.type = 'video/mp4'
+    video.append(fallbackSource)
     if (shouldPlay) {
       video.addEventListener('canplay', () => { video.play().catch(() => undefined) }, { once: true })
     }
@@ -317,15 +327,26 @@ const setupDeferredMedia = () => {
     if (shouldPlay) video.play().catch(() => undefined)
   }
   if (!videos.length) return
+  const selectedSocialVideo = socialVideos.find((video) => video.closest('.social-video-card')?.classList.contains('is-selected')) || socialVideos[0]
+  const activateSocialVideo = (video: HTMLVideoElement) => {
+    socialVideos.forEach((otherVideo) => {
+      if (otherVideo !== video) otherVideo.pause()
+    })
+    loadVideo(video)
+  }
+  socialVideos.forEach((video) => {
+    video.closest<HTMLButtonElement>('.social-video-card')?.addEventListener('click', () => activateSocialVideo(video))
+  })
   if (!('IntersectionObserver' in window)) {
-    videos.forEach((video) => loadVideo(video))
+    if (selectedSocialVideo) activateSocialVideo(selectedSocialVideo)
+    deferredVideos.forEach((video) => loadVideo(video))
     return
   }
   const socialObserver = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return
-    socialVideos.forEach((video) => loadVideo(video))
+    if (selectedSocialVideo) activateSocialVideo(selectedSocialVideo)
     socialObserver.disconnect()
-  }, { rootMargin: '420px 0px' })
+  }, { rootMargin: '160px 0px' })
   socialObserver.observe(socialsSection)
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -334,10 +355,37 @@ const setupDeferredMedia = () => {
       loadVideo(video)
       videoObserver.unobserve(video)
     })
-  }, { rootMargin: '160px 0px' })
+  }, { rootMargin: '240px 0px' })
   deferredVideos.forEach((video) => videoObserver.observe(video))
 }
 setupDeferredMedia()
+
+const setupDeferredImages = () => {
+  const images = [...document.querySelectorAll<HTMLImageElement>('img[data-src]:not([data-defer-until-flip])')]
+  const loadImage = (image: HTMLImageElement) => {
+    if (image.dataset.mediaLoaded === 'true') return
+    const source = image.dataset.src
+    if (!source) return
+    image.dataset.mediaLoaded = 'true'
+    image.src = source
+    image.removeAttribute('data-src')
+  }
+  if (!images.length) return
+  if (!('IntersectionObserver' in window)) {
+    images.forEach(loadImage)
+    return
+  }
+  const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return
+      const image = entry.target as HTMLImageElement
+      loadImage(image)
+      imageObserver.unobserve(image)
+    })
+  }, { rootMargin: '240px 0px' })
+  images.forEach((image) => imageObserver.observe(image))
+}
+setupDeferredImages()
 const contactEyebrow = contactSection.querySelector<HTMLElement>('.eyebrow')
 if (contactEyebrow) contactEyebrow.textContent = 'CONTACT / 08'
 
@@ -816,15 +864,16 @@ const createPracticeWallHover = () => {
     const moveX = gsap.quickTo(preview, 'x', { duration: reduceMotion ? 0 : .28, ease: 'power3.out' })
     const moveY = gsap.quickTo(preview, 'y', { duration: reduceMotion ? 0 : .28, ease: 'power3.out' })
     const previewImageCache = new Map<string, HTMLImageElement>()
-    rows.forEach((row) => {
-      const source = row.dataset.practiceImage
-      if (!source) return
+    const getPreviewImage = (source: string) => {
+      const cachedImage = previewImageCache.get(source)
+      if (cachedImage) return cachedImage
       const image = new Image()
       image.decoding = 'async'
       image.loading = 'eager'
       image.src = source
       previewImageCache.set(source, image)
-    })
+      return image
+    }
     const resizePreviewToImage = () => {
       if (!previewImage.naturalWidth || !previewImage.naturalHeight) return
       const maxWidth = Math.min(window.innerWidth * .32, 360)
@@ -845,7 +894,7 @@ const createPracticeWallHover = () => {
       activeRow = row
       rows.forEach((item) => item.classList.toggle('is-active', item === row))
       const source = row.dataset.practiceImage || ''
-      const cachedImage = previewImageCache.get(source)
+      const cachedImage = getPreviewImage(source)
       activePreviewSource = source
       preview.classList.toggle('is-image-loading', !(cachedImage?.complete && cachedImage.naturalWidth > 0))
       previewImage.src = source
@@ -964,7 +1013,7 @@ const createCompetitionPreview = () => {
 
   const open = (image: HTMLImageElement) => {
     lastTrigger = image.parentElement
-    previewImage.src = image.currentSrc || image.src
+    previewImage.src = image.currentSrc || image.src || image.dataset.src || ''
     previewImage.alt = image.alt
     caption.textContent = image.alt
     preview.classList.add('is-open')
@@ -1148,7 +1197,7 @@ const createContactBadge = () => {
       root?.render(createElement(Lanyard, {
         position: [0, 0, 25],
         gravity: [0, -28, 0],
-        frontImage: '/lanyard-card.jpg',
+        frontImage: '/lanyard-card.webp',
         imageFit: 'contain',
         lanyardWidth: 1.05,
       }))
@@ -1244,7 +1293,21 @@ const frontFace = document.querySelector<HTMLElement>('#front-face')!
 const invertedLayer = document.querySelector<HTMLElement>('#inverted-layer')!
 const aboutFace = document.querySelector<HTMLElement>('#about-face')!
 let isFlipped = false
-const toggleCard = () => { isFlipped = !isFlipped; flipCard.classList.toggle('is-flipped', isFlipped); document.documentElement.classList.toggle('is-card-flipped', isFlipped); heroFrame.setAttribute('aria-pressed', String(isFlipped)); if (isFlipped) { aboutFace.scrollTop = 0; aboutFace.dispatchEvent(new Event('scroll')) } }
+const toggleCard = () => {
+  isFlipped = !isFlipped
+  flipCard.classList.toggle('is-flipped', isFlipped)
+  document.documentElement.classList.toggle('is-card-flipped', isFlipped)
+  heroFrame.setAttribute('aria-pressed', String(isFlipped))
+  if (isFlipped) {
+    const aboutMedia = document.querySelector<HTMLImageElement>('#about-expand-media')
+    if (aboutMedia?.dataset.src) {
+      aboutMedia.src = aboutMedia.dataset.src
+      aboutMedia.removeAttribute('data-src')
+    }
+    aboutFace.scrollTop = 0
+    aboutFace.dispatchEvent(new Event('scroll'))
+  }
+}
 heroFrame.addEventListener('click', (event) => { if (!(event.target as HTMLElement).closest('a, button')) toggleCard() })
 heroFrame.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggleCard() } })
 document.querySelector<HTMLButtonElement>('#about-return-button')?.addEventListener('click', toggleCard)

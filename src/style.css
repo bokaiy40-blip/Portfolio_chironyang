@@ -1,5 +1,5 @@
 @font-face { font-family:'Brier'; src:url('/fonts/Brier-Bold.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
-@font-face { font-family:'Source Han Serif VF'; src:url('/fonts/SourceHanSerifSC-VF.ttf') format('truetype'); font-weight:100 900; font-style:normal; font-display:swap; }
+@font-face { font-family:'Source Han Serif VF'; src:url('/fonts/SourceHanSerifSC-subset.woff2') format('woff2'); font-weight:100 900; font-style:normal; font-display:swap; }
 :root { --paper:#fcfcfb; --ink:#050505; --muted:rgba(0,0,0,.52); --line:rgba(0,0,0,.15); --soft-line:rgba(0,0,0,.1); --dot:radial-gradient(circle,rgb(0 0 0 / 11%) 1px,transparent 1px); --sans:'Helvetica Neue','PingFang SC','Microsoft YaHei',Arial,sans-serif; font-family:var(--sans); color:var(--ink); background:var(--paper); font-synthesis:none; text-rendering:geometricPrecision; -webkit-font-smoothing:antialiased; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; background:var(--paper); }
@@ -2574,13 +2574,13 @@ html.is-on-dark-section #topography-background .topography-canvas {
 #background .education-brand-dut::before {
   width:clamp(300px,25vw,430px);
   height:clamp(84px,7.2vw,120px);
-  background-image:url('/education/dut-logo-direct.png');
+  background-image:url('/education/dut-logo-direct.webp');
 }
 
 #background .education-brand-school::before {
   width:clamp(290px,23vw,400px);
   height:clamp(64px,5.4vw,90px);
-  background-image:url('/education/school-logo-clear.png');
+  background-image:url('/education/school-logo-clear.webp');
 }
 
 @media (max-width:1200px) and (min-width:901px) {
@@ -4135,7 +4135,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   margin:clamp(-112px,-8vw,-48px) auto 0;
   padding:clamp(64px,5vw,86px) clamp(28px,8vw,150px) var(--contact-shell-bottom-padding);
   overflow:visible;
-  background:var(--contact-deep-green) url('/contact-background.jpg') center top / cover no-repeat;
+  background:var(--contact-deep-green) url('/contact-background.webp') center top / cover no-repeat;
   background-color:var(--contact-deep-green);
   background-size:100% calc(100% + clamp(180px,16vw,260px));
   background-position:center calc(-1 * clamp(128px,10vw,148px));
