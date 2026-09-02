@@ -2605,7 +2605,8 @@ html.is-on-dark-section #topography-background .topography-canvas {
     width:min(100%,340px);
     height:66px;
     background-size:100% auto;
-    transform:translateX(58px);
+    margin-inline:auto;
+    transform:none;
   }
 }
 
@@ -2617,14 +2618,15 @@ html.is-on-dark-section #topography-background .topography-canvas {
   #background .education-brand-school::before {
     width:min(100%,300px);
     background-size:100% auto;
-    transform:translateX(clamp(29px,calc((100vw - 72px) / 2 - 114.6px),50px));
+    margin-inline:auto;
+    transform:none;
   }
 }
 
 @media (max-width:359px) {
   #background .education-brand-school::before {
     width:86%;
-    transform:translateX(16.3%);
+    transform:none;
   }
 }
 
