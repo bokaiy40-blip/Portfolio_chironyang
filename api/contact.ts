@@ -2,6 +2,7 @@ import { neon } from '@neondatabase/serverless'
 
 const MAX_CONTACT_LENGTH = 240
 const MAX_SUGGESTION_LENGTH = 2000
+const DEFAULT_CONTACT_NOTIFICATION_TO = 'ybk0109@qq.com'
 
 type RequestLike = {
   method?: string
@@ -46,6 +47,52 @@ const getDatabaseUrl = () => {
     || environment?.DATABASE_URL
     || environment?.NEON_DATABASE_URL
     || ''
+}
+
+const sendContactNotification = async (
+  submissionId: string,
+  method: 'email' | 'phone',
+  value: string,
+  suggestion: string,
+) => {
+  const environment = getRuntimeEnvironment()
+  const apiKey = environment?.RESEND_API_KEY?.trim()
+  const from = environment?.CONTACT_NOTIFICATION_FROM?.trim()
+
+  if (!apiKey || !from) {
+    console.warn('Contact email notification is not configured')
+    return
+  }
+
+  const to = environment?.CONTACT_NOTIFICATION_TO?.trim() || DEFAULT_CONTACT_NOTIFICATION_TO
+  const sentAt = new Date().toISOString()
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `contact-${submissionId}`,
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      subject: '网站收到新的联系信息',
+      text: [
+        '网站收到一条新的联系信息。',
+        '',
+        `联系方式类型：${method === 'email' ? '邮箱' : '电话'}`,
+        `联系方式：${value}`,
+        `建议：${suggestion || '（未填写）'}`,
+        `提交时间：${sentAt}`,
+        `提交编号：${submissionId}`,
+      ].join('\n'),
+    }),
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => '')
+    throw new Error(`Resend email failed: ${response.status} ${errorText.slice(0, 200)}`)
+  }
 }
 
 const getHeader = (request: RequestLike, name: string) => {
@@ -155,10 +202,18 @@ export default async function handler(request: RequestLike, response: ResponseLi
     if (duplicateRows.length) {
       return json(response, { error: 'Already submitted' }, 409)
     }
+    const submissionId = crypto.randomUUID()
     await sql`
       INSERT INTO contact_submissions (id, contact_method, contact_value, suggestion)
-      VALUES (${crypto.randomUUID()}, ${method}, ${value}, ${suggestion})
+      VALUES (${submissionId}, ${method}, ${value}, ${suggestion})
     `
+
+    try {
+      await sendContactNotification(submissionId, method, value, suggestion)
+    } catch (error) {
+      console.error('Contact email notification failed', error)
+    }
+
     return json(response, { ok: true })
   } catch (error) {
     console.error('Contact submission failed', error)

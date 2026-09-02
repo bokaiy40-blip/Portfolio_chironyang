@@ -5,6 +5,9 @@ type ContactEnvironment = {
   DATABASE_URL?: string
   NEON_DATABASE_URL?: string
   CONTACT_RATE_LIMIT_SALT?: string
+  RESEND_API_KEY?: string
+  CONTACT_NOTIFICATION_FROM?: string
+  CONTACT_NOTIFICATION_TO?: string
 }
 
 type ContactContext = {
@@ -14,6 +17,7 @@ type ContactContext = {
 
 const MAX_CONTACT_LENGTH = 240
 const MAX_SUGGESTION_LENGTH = 2000
+const DEFAULT_CONTACT_NOTIFICATION_TO = 'ybk0109@qq.com'
 
 const readText = (value: unknown, maxLength: number) => typeof value === 'string'
   ? value.trim().slice(0, maxLength)
@@ -28,6 +32,52 @@ const getClientFingerprint = async (request: Request, databaseUrl: string, env: 
     new TextEncoder().encode(`${salt}\n${forwardedFor}\n${userAgent}`),
   )
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('')
+}
+
+const sendContactNotification = async (
+  env: ContactEnvironment,
+  submissionId: string,
+  method: 'email' | 'phone',
+  value: string,
+  suggestion: string,
+) => {
+  const apiKey = env.RESEND_API_KEY?.trim()
+  const from = env.CONTACT_NOTIFICATION_FROM?.trim()
+
+  if (!apiKey || !from) {
+    console.warn('Contact email notification is not configured')
+    return
+  }
+
+  const to = env.CONTACT_NOTIFICATION_TO?.trim() || DEFAULT_CONTACT_NOTIFICATION_TO
+  const sentAt = new Date().toISOString()
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': `contact-${submissionId}`,
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      subject: '网站收到新的联系信息',
+      text: [
+        '网站收到一条新的联系信息。',
+        '',
+        `联系方式类型：${method === 'email' ? '邮箱' : '电话'}`,
+        `联系方式：${value}`,
+        `建议：${suggestion || '（未填写）'}`,
+        `提交时间：${sentAt}`,
+        `提交编号：${submissionId}`,
+      ].join('\n'),
+    }),
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text().catch(() => '')
+    throw new Error(`Resend email failed: ${response.status} ${errorText.slice(0, 200)}`)
+  }
 }
 
 const json = (body: Record<string, unknown>, status = 200, extraHeaders: Record<string, string> = {}) => new Response(
@@ -123,10 +173,18 @@ export const onRequestPost = async ({ request, env }: ContactContext) => {
     if (duplicateRows.length) {
       return json({ error: 'Already submitted' }, 409)
     }
+    const submissionId = crypto.randomUUID()
     await sql`
       INSERT INTO contact_submissions (id, contact_method, contact_value, suggestion)
-      VALUES (${crypto.randomUUID()}, ${method}, ${value}, ${suggestion})
+      VALUES (${submissionId}, ${method}, ${value}, ${suggestion})
     `
+
+    try {
+      await sendContactNotification(env, submissionId, method, value, suggestion)
+    } catch (error) {
+      console.error('Contact email notification failed', error)
+    }
+
     return json({ ok: true })
   } catch (error) {
     console.error('Contact submission failed', error)
