@@ -36,4 +36,3 @@
 | `Stack.jsx` / `Stack.css` | 摄影区域交互照片墙组件 | React Bits（按用户请求接入） | 以 React Bits 发布条款为准 |
 | `Lanyard.jsx` / `card.glb` / `lanyard.png` | 联系我按钮展开的 3D 工牌组件与模型 | React Bits（按用户请求接入） | 以 React Bits 发布条款为准 |
 | `motion` | Stack 卡片拖拽、弹簧与层叠动画 | <https://motion.dev/> | MIT License |
-

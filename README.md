@@ -27,4 +27,3 @@ npm run dev
 - `pnpm-lock.yaml`：依赖版本锁定文件
 
 压缩包不包含 `node_modules` 和 `dist`，下载后通过 `build.bat` 自动生成，避免文件过大并确保依赖按当前环境安装。
-

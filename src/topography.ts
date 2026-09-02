@@ -262,4 +262,3 @@ export const createTopography = (container: HTMLElement, options: TopographyOpti
     gl.getExtension('WEBGL_lose_context')?.loseContext()
   }
 }
-

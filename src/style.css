@@ -4400,6 +4400,16 @@ html.is-on-dark-section #topography-background .topography-canvas {
 }
 
 @media (max-width:900px) {
+  #competitions .competition-info {
+    min-width:0;
+  }
+
+  #competitions .competition-info h3 {
+    max-width:100%;
+    overflow-wrap:anywhere;
+    white-space:normal;
+  }
+
   #contact .contact-shell {
     width:min(100% - 32px,680px);
     padding-right:16px;
@@ -4505,8 +4515,9 @@ html.is-on-dark-section #topography-background .topography-canvas {
 
 @media (max-width:600px) {
   #hobbies .hobby-editorial-stack-figure {
-    width:min(76%,300px);
-    justify-self:center;
+    width:min(68%,260px);
+    margin-left:clamp(4px,2vw,10px);
+    justify-self:start;
   }
 
   html.is-card-flipped #home .front-face {
@@ -4529,6 +4540,11 @@ html.is-on-dark-section #topography-background .topography-canvas {
 
 #contact .contact-inner.contact-card {
   --contact-card-bottom-padding:clamp(18px,2.8vw,34px);
+}
+
+#contact .contact-card h2 {
+  letter-spacing:normal;
+  line-height:calc(1em + 8px);
 }
 
 @media (max-width:600px) {
@@ -4605,4 +4621,3 @@ html.is-on-dark-section #topography-background .topography-canvas {
     width:100%;
   }
 }
-

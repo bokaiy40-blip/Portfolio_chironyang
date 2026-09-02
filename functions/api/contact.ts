@@ -140,4 +140,3 @@ export const onRequest = async ({ request, env }: ContactContext) => {
   }
   return onRequestPost({ request, env })
 }
-

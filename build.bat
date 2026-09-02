@@ -37,4 +37,3 @@ if errorlevel 1 (
 echo.
 echo Build complete. The production files are in the dist folder.
 pause
-

@@ -395,4 +395,3 @@ const COMPONENT_DEFAULTS = {
         paddingBottom: 24,
     },
 }
-

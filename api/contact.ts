@@ -165,4 +165,3 @@ export default async function handler(request: RequestLike, response: ResponseLi
     return json(response, { error: 'Service unavailable' }, 500)
   }
 }
-

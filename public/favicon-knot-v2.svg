@@ -16,4 +16,3 @@
   <rect width="64" height="64" rx="13" fill="#d2ff00"/>
   <image href="/favicon-knot-source.png" x="4" y="8" width="56" height="48" preserveAspectRatio="xMidYMid meet" filter="url(#black-line-mark)" clip-path="url(#rounded-tab)"/>
 </svg>
-
