@@ -2606,7 +2606,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
     height:66px;
     background-size:100% auto;
     margin-inline:auto;
-    transform:none;
+    transform:translateX(20px);
   }
 }
 
@@ -2619,14 +2619,14 @@ html.is-on-dark-section #topography-background .topography-canvas {
     width:min(100%,300px);
     background-size:100% auto;
     margin-inline:auto;
-    transform:none;
+    transform:translateX(20px);
   }
 }
 
 @media (max-width:359px) {
   #background .education-brand-school::before {
     width:86%;
-    transform:none;
+    transform:translateX(20px);
   }
 }
 
