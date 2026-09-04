@@ -524,6 +524,8 @@ const createHobbyScrollExperience = () => {
     }
 
     if (!mobile) return
+    const yoyoTitle = section.querySelector<HTMLElement>('.hobby-editorial-yoyo .hobby-editorial-title')
+    const lastYoyoVideo = section.querySelector<HTMLElement>('.hobby-yoyo-media--video-two')
     section.classList.add('hobby-scroll-managed')
     const sectionResizeObserver = typeof ResizeObserver === 'undefined'
       ? null
@@ -531,9 +533,10 @@ const createHobbyScrollExperience = () => {
     sectionResizeObserver?.observe(section)
     const verticalBlend = gsap.to({}, {
       scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
+        trigger: yoyoTitle ?? section,
+        start: yoyoTitle ? 'top bottom' : 'top top',
+        endTrigger: lastYoyoVideo ?? section,
+        end: lastYoyoVideo ? 'center 58%' : 'bottom top',
         scrub: .55,
         invalidateOnRefresh: true,
         onUpdate: (self) => applyBlend(self.progress),
