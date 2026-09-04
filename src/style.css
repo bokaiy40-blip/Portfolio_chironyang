@@ -4446,7 +4446,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   }
 
   #contact .contact-transition {
-    height:clamp(170px,31vh,260px);
+    height:clamp(120px,20vh,180px);
   }
 
   #contact .contact-shell {
