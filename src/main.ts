@@ -475,7 +475,7 @@ const createHobbyScrollExperience = () => {
     const progress = clamp(value)
     if (Math.abs(progress - Number(section.dataset.hobbyBlendProgress || -1)) < 0.002) return
     section.dataset.hobbyBlendProgress = progress.toFixed(4)
-    const surfaceAlpha = .84 + progress * .04
+    const surfaceAlpha = .84 + progress * (window.matchMedia('(max-width:900px)').matches ? .04 : .1)
     section.style.setProperty('--ink-bg', color(dark.background, light.background, progress, surfaceAlpha))
     section.style.setProperty('--ink-text', color(dark.text, light.text, progress))
     section.style.setProperty('--ink-muted', color(dark.muted, light.muted, progress, .58))
