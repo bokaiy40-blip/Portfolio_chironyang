@@ -4648,7 +4648,8 @@ html.is-on-dark-section #topography-background .topography-canvas {
     z-index:1;
     display:block;
     width:100%;
-    height:clamp(150px,22vh,210px);
+    height:clamp(420px,52vh,520px);
+    margin-top:clamp(-300px,-32vh,-240px);
     pointer-events:none;
     background:linear-gradient(180deg,
       rgb(48 58 45 / 80%) 0%,
