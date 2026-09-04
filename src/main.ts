@@ -295,10 +295,6 @@ socialsSection.className = 'site-section white-section socials-section'
   socialsSection.innerHTML = `<div class="section-inner socials-inner"><div class="socials-heading"><span class="socials-symbol-rotator" data-socials-symbols aria-hidden="true">${socialIconItems.map((item, index) => `<img class="socials-symbol-icon${index === 0 ? ' is-active' : ''}" src="${item.src}" alt="" draggable="false" />`).join('')}</span><h2 aria-label="WHAT'S UP ON SOCIALS"><span>WHAT'S UP</span><em>ON SOCIALS</em></h2></div><div class="socials-gallery" data-socials-gallery aria-label="社交动态视频"><div class="socials-video-deck">${socialVideoItems.map((item, index) => `<button class="social-video-card${index === 2 ? ' is-selected' : ''}" type="button" data-social-video-index="${index}" aria-label="选择${item.alt}" aria-pressed="${index === 2 ? 'true' : 'false'}"><span class="social-video-card-media"><video data-src="${item.src}" data-webm="${item.webm || ''}" poster="${item.poster}" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></span><span class="social-video-card-index">0${index + 1}</span></button>`).join('')}</div></div><div class="socials-follow" aria-labelledby="socials-follow-title"><h3 id="socials-follow-title">我的社交媒体</h3><p class="socials-follow-caption">Follow Chiron on social media</p><div class="socials-follow-actions" role="group" aria-label="我的社交媒体">${socialFollowItems.map(({ label, href }) => `<a class="social-follow-button" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${label}">${socialFollowLabel(label, 'social-follow-label')}${socialFollowLabel(label, 'social-follow-label-hover', true)}</a>`).join('')}</div></div><div class="socials-footer"><span>CLICK / TO FOCUS</span><span>01—05 / LOOPING VIDEO ARCHIVE</span></div></div>`
 mainContent.insertBefore(socialsSection, contactSection)
 socialsSection.querySelector<HTMLElement>('.socials-footer')?.remove()
-const mobileHobbySocialTransition = document.createElement('div')
-mobileHobbySocialTransition.className = 'mobile-hobby-social-transition'
-mobileHobbySocialTransition.setAttribute('aria-hidden', 'true')
-socialsSection.before(mobileHobbySocialTransition)
 
 const setupDeferredMedia = () => {
   const videos = [...document.querySelectorAll<HTMLVideoElement>('video[data-src]')]
@@ -494,8 +490,8 @@ const createHobbyScrollExperience = () => {
   const media = gsap.matchMedia()
 
   applyBlend(0)
-  media.add({ desktop: '(min-width:901px)', reduceMotion: '(prefers-reduced-motion: reduce)' }, (context) => {
-    const { desktop, reduceMotion } = context.conditions as { desktop?: boolean; reduceMotion?: boolean }
+  media.add({ desktop: '(min-width:901px)', mobile: '(max-width:900px)', reduceMotion: '(prefers-reduced-motion: reduce)' }, (context) => {
+    const { desktop, mobile, reduceMotion } = context.conditions as { desktop?: boolean; mobile?: boolean; reduceMotion?: boolean }
     if (desktop && !reduceMotion) {
       // Do not combine the browser's sticky positioning with ScrollTrigger's
       // pinning. Both systems try to take control at the chapter boundary and
@@ -527,19 +523,25 @@ const createHobbyScrollExperience = () => {
       }
     }
 
+    if (!mobile) return
+    section.classList.add('hobby-scroll-managed')
     const verticalBlend = gsap.to({}, {
       scrollTrigger: {
         trigger: section,
-        start: 'top bottom',
+        start: 'top top',
         end: 'bottom top',
-        scrub: true,
+        scrub: .55,
+        invalidateOnRefresh: true,
         onUpdate: (self) => applyBlend(self.progress),
         onRefresh: (self) => applyBlend(self.progress),
         onLeave: () => applyBlend(1),
         onLeaveBack: () => applyBlend(0),
       },
     })
-    return () => verticalBlend.kill()
+    return () => {
+      verticalBlend.kill()
+      section.classList.remove('hobby-scroll-managed')
+    }
   })
 }
 

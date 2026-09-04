@@ -4639,22 +4639,3 @@ html.is-on-dark-section #topography-background .topography-canvas {
     width:100%;
   }
 }
-
-/* Mobile-only handoff from the green hobby chapter into the light social archive.
-   The translucent stops keep the fixed animated topography visible underneath. */
-@media (max-width:600px) {
-  .mobile-hobby-social-transition {
-    position:relative;
-    z-index:1;
-    display:block;
-    width:100%;
-    height:clamp(420px,52vh,520px);
-    margin-top:clamp(-300px,-32vh,-240px);
-    pointer-events:none;
-    background:linear-gradient(180deg,
-      rgb(48 58 45 / 80%) 0%,
-      rgb(94 105 93 / 72%) 38%,
-      rgb(190 194 187 / 72%) 72%,
-      rgb(252 252 251 / 88%) 100%);
-  }
-}
