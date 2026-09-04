@@ -1,6 +1,6 @@
 @font-face { font-family:'Brier'; src:url('/fonts/Brier-Bold.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
 @font-face { font-family:'Source Han Serif VF'; src:url('/fonts/SourceHanSerifSC-subset.woff2') format('woff2'); font-weight:100 900; font-style:normal; font-display:swap; }
-:root { --paper:#fcfcfb; --ink:#050505; --muted:rgba(0,0,0,.52); --line:rgba(0,0,0,.15); --soft-line:rgba(0,0,0,.1); --dot:radial-gradient(circle,rgb(0 0 0 / 11%) 1px,transparent 1px); --sans:'Helvetica Neue','PingFang SC','Microsoft YaHei',Arial,sans-serif; font-family:var(--sans); color:var(--ink); background:var(--paper); font-synthesis:none; text-rendering:geometricPrecision; -webkit-font-smoothing:antialiased; }
+:root { --paper:#fcfcfb; --ink:#050505; --muted:rgba(0,0,0,.52); --line:rgba(0,0,0,.15); --soft-line:rgba(0,0,0,.1); --dot:radial-gradient(circle,rgb(0 0 0 / 11%) 1px,transparent 1px); --sans:'Helvetica Neue','PingFang SC','Microsoft YaHei',Arial,sans-serif; --stylesheet-origin-fix:1; font-family:var(--sans); color:var(--ink); background:var(--paper); font-synthesis:none; text-rendering:geometricPrecision; -webkit-font-smoothing:antialiased; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; background:var(--paper); }
 body { min-width:320px; margin:0; overflow-x:hidden; background:var(--paper); }
