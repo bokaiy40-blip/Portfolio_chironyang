@@ -525,6 +525,10 @@ const createHobbyScrollExperience = () => {
 
     if (!mobile) return
     section.classList.add('hobby-scroll-managed')
+    const sectionResizeObserver = typeof ResizeObserver === 'undefined'
+      ? null
+      : new ResizeObserver(() => ScrollTrigger.refresh())
+    sectionResizeObserver?.observe(section)
     const verticalBlend = gsap.to({}, {
       scrollTrigger: {
         trigger: section,
@@ -540,6 +544,7 @@ const createHobbyScrollExperience = () => {
     })
     return () => {
       verticalBlend.kill()
+      sectionResizeObserver?.disconnect()
       section.classList.remove('hobby-scroll-managed')
     }
   })
