@@ -2574,13 +2574,18 @@ html.is-on-dark-section #topography-background .topography-canvas {
 #background .education-brand-dut::before {
   width:clamp(300px,25vw,430px);
   height:clamp(84px,7.2vw,120px);
-  background-image:url('/education/dut-logo-direct.webp');
+  background-image:var(--education-dut-logo,none);
 }
 
 #background .education-brand-school::before {
   width:clamp(290px,23vw,400px);
   height:clamp(64px,5.4vw,90px);
-  background-image:url('/education/school-logo-clear.webp');
+  background-image:var(--education-school-logo,none);
+}
+
+#background.is-education-media-ready {
+  --education-dut-logo:url('/education/dut-logo-direct.webp');
+  --education-school-logo:url('/education/school-logo-clear.webp');
 }
 
 @media (max-width:1200px) and (min-width:901px) {
@@ -3660,7 +3665,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
 }
 
 .about-copy-reveal {
-  margin:0 0 .6em;
+  margin:0;
 }
 
 .about-copy-reveal:last-child {
@@ -3673,6 +3678,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   width:100%;
   max-width:560px;
   justify-self:end;
+  align-self:end;
   font-family:'Source Han Serif VF','Noto Serif SC','Songti SC',serif;
 }
 
@@ -3680,7 +3686,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   display:grid;
   grid-template-columns:minmax(0,1fr) auto;
   align-items:center;
-  padding:clamp(8px,1.1vh,13px) 0;
+  padding:clamp(5px,.65vh,8px) 0;
   gap:18px;
   font-size:clamp(10px,.95vw,15px);
 }
@@ -3705,6 +3711,26 @@ html.is-on-dark-section #topography-background .topography-canvas {
   font-family:'Source Han Serif VF','Noto Serif SC','Songti SC',serif;
   font-size:9px;
   font-weight:400;
+}
+
+.about-reference-head .profile-image {
+  width:clamp(138px,11vw,184px);
+  height:auto;
+  aspect-ratio:5 / 6;
+  padding:0;
+  border:clamp(3px,.35vw,6px) solid #fff;
+  background:#fff;
+  object-fit:cover;
+  object-position:center;
+  filter:none;
+}
+
+@media (min-width:901px) {
+  .about-content-block .about-heading-row,
+  .about-content-block .about-copy,
+  .about-content-block .about-facts {
+    transform:translateY(clamp(42px,5.5vh,64px));
+  }
 }
 
 .about-face .about-reference-menu,
@@ -3738,6 +3764,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
 
   .about-content-block .about-heading-row {
     margin-bottom:clamp(14px,3vw,24px);
+    transform:none;
   }
 
   .about-content-block .about-layout {
@@ -3752,6 +3779,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
     grid-row:auto;
     max-width:100%;
     font-size:clamp(12px,3.3vw,16px);
+    transform:none;
   }
 
   .about-content-block .about-facts {
@@ -3759,6 +3787,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
     grid-row:auto;
     max-width:none;
     justify-self:stretch;
+    transform:none;
   }
 
   .about-content-block .about-facts > div {
@@ -3769,6 +3798,14 @@ html.is-on-dark-section #topography-background .topography-canvas {
   .about-content-block .signature {
     grid-column:auto;
     grid-row:auto;
+  }
+
+  .about-reference-head .profile-image {
+    width:clamp(72px,19vw,96px);
+    height:auto;
+    aspect-ratio:5 / 6;
+    padding:0;
+    border-width:3px;
   }
 
   .about-expand-title {
@@ -4135,13 +4172,18 @@ html.is-on-dark-section #topography-background .topography-canvas {
   margin:clamp(-112px,-8vw,-48px) auto 0;
   padding:clamp(64px,5vw,86px) clamp(28px,8vw,150px) var(--contact-shell-bottom-padding);
   overflow:visible;
-  background:var(--contact-deep-green) url('/contact-background.webp') center top / cover no-repeat;
+  background:var(--contact-deep-green);
   background-color:var(--contact-deep-green);
   background-size:100% calc(100% + clamp(180px,16vw,260px));
   background-position:center calc(-1 * clamp(128px,10vw,148px));
   border-radius:clamp(32px,3.2vw,48px);
   box-shadow:none;
   isolation:isolate;
+}
+
+#contact.is-contact-media-ready .contact-shell {
+  background-image:url('/contact-background.webp');
+  background-repeat:no-repeat;
 }
 
 #contact .contact-shell::before {
@@ -4573,31 +4615,6 @@ html.is-on-dark-section #topography-background .topography-canvas {
   #contact .contact-inner.contact-card {
     --contact-card-bottom-padding:16px;
   }
-}
-
-/* Keep private academic results visible in the layout while making the values
-   unreadable in the public portfolio. */
-#background .education-ranking-masked {
-  position:relative;
-  isolation:isolate;
-}
-
-#background .education-ranking-masked > * {
-  filter:blur(12px);
-  user-select:none;
-}
-
-#background .education-ranking-masked::after {
-  position:absolute;
-  z-index:2;
-  inset:0;
-  border-radius:inherit;
-  background-color:rgb(255 255 255 / 38%);
-  background-image:
-    repeating-linear-gradient(0deg,rgb(120 120 120 / 17%) 0 7px,transparent 7px 14px),
-    repeating-linear-gradient(90deg,rgb(120 120 120 / 15%) 0 9px,transparent 9px 18px);
-  content:'';
-  pointer-events:none;
 }
 
 #contact .contact-submit-error {

@@ -1,12 +1,10 @@
 import './style.css'
-import { inject } from '@vercel/analytics'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { createElement } from 'react'
 import { flushSync } from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import StaggeredMenu, { type StaggeredMenuItem } from './components/StaggeredMenu'
-import BlockTextReveal from './components/originkit/ui/BlockTextReveal'
 import { createTopography } from './topography'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -14,7 +12,15 @@ gsap.registerPlugin(ScrollTrigger)
 const app = document.querySelector<HTMLDivElement>('#app')
 if (!app) throw new Error('App root is missing')
 
-inject()
+const runWhenIdle = (callback: () => void, timeout = 1200) => {
+  const requestIdle = (window as unknown as { requestIdleCallback?: (task: () => void, options?: { timeout: number }) => number }).requestIdleCallback
+  if (requestIdle) requestIdle(callback, { timeout })
+  else setTimeout(callback, Math.min(timeout, 420))
+}
+
+runWhenIdle(() => {
+  void import('@vercel/analytics').then(({ inject }) => inject()).catch(() => undefined)
+})
 
 const skillCards = [
   { number: '01', title: '嵌入式控制', image: '/skills/skill-01.svg', body: '围绕 STM32 HAL 进行底层外设控制与 RTOS 应用开发，关注控制链路的稳定性与可调试性。', tags: ['STM32', 'FreeRTOS', 'GPIO / USART / SPI / I2C', 'ADC / PWM'] },
@@ -23,17 +29,18 @@ const skillCards = [
   { number: '04', title: '内容与表达', image: '/skills/skill-04.svg', body: '用视频把复杂的技术和团队活动讲得更容易被看见，也在持续训练对节奏、画面与信息层级的判断。', tags: ['PR', '剪映', '抖音运营', '56.6 万单视频播放'] },
 ]
 const socialVideoItems = [
-  { src: '/socials/social-01.mp4', webm: null, poster: '/socials/social-01-poster.webp', alt: '社交动态视频 01' },
-  { src: '/socials/social-02.mp4', webm: null, poster: '/socials/social-02-poster.webp', alt: '社交动态视频 02' },
-  { src: '/socials/social-03.mp4', webm: null, poster: '/socials/social-03-poster.webp', alt: '社交动态视频 03' },
-  { src: '/socials/social-04.mp4', webm: null, poster: '/socials/social-04-poster.webp', alt: '社交动态视频 04' },
-  { src: '/socials/social-05.mp4', webm: null, poster: '/socials/social-05-poster.webp', alt: '社交动态视频 05' },
+  { src: '/socials/social-01.mp4', webm: null, poster: '', deferredPoster: '/socials/social-01-poster.webp', alt: '社交动态视频 01' },
+  { src: '/socials/social-02.mp4', webm: null, poster: '', deferredPoster: '/socials/social-02-poster.webp', alt: '社交动态视频 02' },
+  { src: '/socials/social-03.mp4', webm: null, poster: '', deferredPoster: '/socials/social-03-poster.webp', alt: '社交动态视频 03' },
+  { src: '/socials/social-04.mp4', webm: null, poster: '', deferredPoster: '/socials/social-04-poster.webp', alt: '社交动态视频 04' },
+  { src: '/socials/social-05.mp4', webm: null, poster: '', deferredPoster: '/socials/social-05-poster.webp', alt: '社交动态视频 05' },
 ]
+const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=='
 const socialIconItems = [
-  { src: '/socials/icons/social-icon-01.webp', alt: '网球拍图标' },
-  { src: '/socials/icons/social-icon-02.webp', alt: '游戏手柄图标' },
-  { src: '/socials/icons/social-icon-03.webp', alt: '相机图标' },
-  { src: '/socials/icons/social-icon-04.webp', alt: '网球拍图标' },
+  { src: transparentPixel, deferredSrc: '/socials/icons/social-icon-01.webp', alt: '网球拍图标' },
+  { src: transparentPixel, deferredSrc: '/socials/icons/social-icon-02.webp', alt: '游戏手柄图标' },
+  { src: transparentPixel, deferredSrc: '/socials/icons/social-icon-03.webp', alt: '相机图标' },
+  { src: transparentPixel, deferredSrc: '/socials/icons/social-icon-04.webp', alt: '网球拍图标' },
 ]
 const socialFollowItems = [
   { label: '抖音', href: 'https://www.douyin.com/user/MS4wLjABAAAAmwtctMoK-AY3bO01VHeSfO75N34v06kV4ygCd4y1O-Q?from_tab_name=main' },
@@ -76,7 +83,7 @@ const yoyoHobbyMarkup = `
       </div>
       <div class="hobby-yoyo-media hobby-yoyo-media--video-one">
         <span class="hobby-yoyo-media-caption">Baicheng, 2023</span>
-        <video data-src="/hobbies/yo-yo/video-01.mp4" data-webm="/hobbies/yo-yo/video-01.webm" poster="/hobbies/yo-yo/video-01-poster.webp" autoplay muted loop playsinline preload="none" aria-label="悠悠球动作视频一"></video>
+        <video data-src="/hobbies/yo-yo/video-01.mp4" data-webm="/hobbies/yo-yo/video-01.webm" data-poster="/hobbies/yo-yo/video-01-poster.webp" autoplay muted loop playsinline preload="none" aria-label="悠悠球动作视频一"></video>
       </div>
       <div class="hobby-yoyo-media hobby-yoyo-media--meetup">
         <span class="hobby-yoyo-media-caption">With Kengo, Nir Tokyo</span>
@@ -84,7 +91,7 @@ const yoyoHobbyMarkup = `
       </div>
       <div class="hobby-yoyo-media hobby-yoyo-media--video-two">
         <span class="hobby-yoyo-media-caption">Shot by Kengo, 2024</span>
-        <video data-src="/hobbies/yo-yo/video-02.mp4" data-webm="/hobbies/yo-yo/video-02.webm" poster="/hobbies/yo-yo/video-02-poster.webp" autoplay muted loop playsinline preload="none" aria-label="悠悠球动作视频二"></video>
+        <video data-src="/hobbies/yo-yo/video-02.mp4" data-webm="/hobbies/yo-yo/video-02.webm" data-poster="/hobbies/yo-yo/video-02-poster.webp" autoplay muted loop playsinline preload="none" aria-label="悠悠球动作视频二"></video>
       </div>
     </div>
   </figure>
@@ -106,7 +113,7 @@ const logoWallItems = [
   { src: brandYoyorecreationUrl, alt: 'yoyorecreation', className: 'logo-yoyo' },
   { src: brandYonexUrl, alt: 'Yonex', className: 'logo-yonex' },
 ]
-const logoWallGroup = (hidden = false) => `<div class="logo-wall-group"${hidden ? ' aria-hidden="true"' : ''}>${logoWallItems.map((item) => `<span class="brand-logo ${item.className}"><img class="brand-logo-image" src="${item.src}" alt="${hidden ? '' : item.alt}"${hidden ? ' aria-hidden="true"' : ''} draggable="false" /></span>`).join('')}</div>`
+const logoWallGroup = (hidden = false) => `<div class="logo-wall-group"${hidden ? ' aria-hidden="true"' : ''}>${logoWallItems.map((item) => `<span class="brand-logo ${item.className}"><img class="brand-logo-image" data-src="${item.src}" alt="${hidden ? '' : item.alt}"${hidden ? ' aria-hidden="true"' : ''} loading="lazy" decoding="async" draggable="false" /></span>`).join('')}</div>`
 const logoWallMarkup = `<div class="logo-wall reveal" data-logo-wall><div class="logo-marquee" data-logo-marquee aria-label="工具与品牌"><div class="logo-marquee-track" data-logo-track>${logoWallGroup()}${logoWallGroup(true)}</div></div></div>`
 const skillsMarkup = skillCards.map((card) => `
   <article class="skill-card reveal">
@@ -178,28 +185,40 @@ if (staggeredMenuMount) {
 
 const topographyBackground = document.createElement('div')
 topographyBackground.id = 'topography-background'
-topographyBackground.className = 'topography-container'
+topographyBackground.className = 'topography-container topography-fallback'
 topographyBackground.setAttribute('aria-hidden', 'true')
 app.prepend(topographyBackground)
-createTopography(topographyBackground)
-app.querySelector<HTMLElement>('.about-reference-head .profile-image')?.remove()
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  topographyBackground.classList.remove('topography-fallback')
+  createTopography(topographyBackground)
+}))
+const aboutProfileImage = app.querySelector<HTMLImageElement>('.about-reference-head .profile-image')
+if (aboutProfileImage) aboutProfileImage.src = '/about-profile-2026.webp'
+document.querySelectorAll<HTMLElement>('[data-about-reveal]').forEach((target) => {
+  target.textContent = target.dataset.aboutReveal || ''
+})
 
+let aboutTextRevealsPromise: Promise<void> | null = null
 const createAboutTextReveals = () => {
+  if (aboutTextRevealsPromise) return aboutTextRevealsPromise
+  aboutTextRevealsPromise = import('./components/originkit/ui/BlockTextReveal').then(({ default: BlockTextReveal }) => {
   const targets = [...document.querySelectorAll<HTMLElement>('[data-about-reveal]')]
-  targets.forEach((target) => {
+  const configurations = targets.flatMap((target) => {
     const text = target.dataset.aboutReveal
-    if (!text) return
+    if (!text) return []
     const computed = getComputedStyle(target)
-    const font = {
-      fontFamily: computed.fontFamily,
-      fontSize: computed.fontSize,
-      fontWeight: Number(computed.fontWeight) || 400,
-      lineHeight: computed.lineHeight,
-      letterSpacing: computed.letterSpacing,
-    }
+    return [{ target, text, computed }]
+  })
+  configurations.forEach(({ target, text, computed }) => {
     createRoot(target).render(createElement(BlockTextReveal, {
       text,
-      font,
+      font: {
+        fontFamily: computed.fontFamily,
+        fontSize: computed.fontSize,
+        fontWeight: Number(computed.fontWeight) || 400,
+        lineHeight: computed.lineHeight,
+        letterSpacing: computed.letterSpacing,
+      },
       align: computed.textAlign === 'right' ? 'right' : computed.textAlign === 'center' ? 'center' : 'left',
       textColor: computed.color,
       blockColor: 'rgb(0 0 0 / 58%)',
@@ -210,9 +229,9 @@ const createAboutTextReveals = () => {
       style: { width: '100%', minWidth: 0 },
     }))
   })
+  })
+  return aboutTextRevealsPromise
 }
-
-createAboutTextReveals()
 
 const mainContent = app.querySelector('main')!
 const skillsSection = document.querySelector<HTMLElement>('#skills')!
@@ -221,6 +240,18 @@ const backgroundSection = document.querySelector<HTMLElement>('#background')!
 const competitionSection = document.querySelector<HTMLElement>('#competitions')!
 const hobbiesSection = document.querySelector<HTMLElement>('#hobbies')!
 const contactSection = document.querySelector<HTMLElement>('#contact')!
+const runWhenNear = (target: Element | null, callback: () => void, rootMargin = '800px 0px') => {
+  if (!target || !('IntersectionObserver' in window)) {
+    callback()
+    return
+  }
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return
+    observer.disconnect()
+    callback()
+  }, { rootMargin })
+  observer.observe(target)
+}
 const photographyStackMount = hobbiesSection.querySelector<HTMLElement>('#photography-stack-mount')
 let photographyStackModulePromise: Promise<any> | null = null
 const loadPhotographyStackModule = () => {
@@ -293,6 +324,16 @@ const socialsSection = document.createElement('section')
 socialsSection.id = 'socials'
 socialsSection.className = 'site-section white-section socials-section'
   socialsSection.innerHTML = `<div class="section-inner socials-inner"><div class="socials-heading"><span class="socials-symbol-rotator" data-socials-symbols aria-hidden="true">${socialIconItems.map((item, index) => `<img class="socials-symbol-icon${index === 0 ? ' is-active' : ''}" src="${item.src}" alt="" draggable="false" />`).join('')}</span><h2 aria-label="WHAT'S UP ON SOCIALS"><span>WHAT'S UP</span><em>ON SOCIALS</em></h2></div><div class="socials-gallery" data-socials-gallery aria-label="社交动态视频"><div class="socials-video-deck">${socialVideoItems.map((item, index) => `<button class="social-video-card${index === 2 ? ' is-selected' : ''}" type="button" data-social-video-index="${index}" aria-label="选择${item.alt}" aria-pressed="${index === 2 ? 'true' : 'false'}"><span class="social-video-card-media"><video data-src="${item.src}" data-webm="${item.webm || ''}" poster="${item.poster}" autoplay muted loop playsinline preload="none" aria-hidden="true"></video></span><span class="social-video-card-index">0${index + 1}</span></button>`).join('')}</div></div><div class="socials-follow" aria-labelledby="socials-follow-title"><h3 id="socials-follow-title">我的社交媒体</h3><p class="socials-follow-caption">Follow Chiron on social media</p><div class="socials-follow-actions" role="group" aria-label="我的社交媒体">${socialFollowItems.map(({ label, href }) => `<a class="social-follow-button" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="${label}">${socialFollowLabel(label, 'social-follow-label')}${socialFollowLabel(label, 'social-follow-label-hover', true)}</a>`).join('')}</div></div><div class="socials-footer"><span>CLICK / TO FOCUS</span><span>01—05 / LOOPING VIDEO ARCHIVE</span></div></div>`
+socialsSection.querySelectorAll<HTMLImageElement>('.socials-symbol-icon').forEach((image, index) => {
+  image.dataset.src = socialIconItems[index]?.deferredSrc || ''
+  image.removeAttribute('src')
+  image.loading = 'lazy'
+  image.decoding = 'async'
+})
+socialsSection.querySelectorAll<HTMLVideoElement>('.social-video-card video').forEach((video, index) => {
+  video.dataset.poster = socialVideoItems[index]?.deferredPoster || ''
+  video.removeAttribute('poster')
+})
 mainContent.insertBefore(socialsSection, contactSection)
 socialsSection.querySelector<HTMLElement>('.socials-footer')?.remove()
 
@@ -309,6 +350,11 @@ const setupDeferredMedia = () => {
     if (!source) return
     video.dataset.mediaLoaded = 'true'
     video.preload = 'auto'
+    const poster = video.dataset.poster
+    if (poster) {
+      video.poster = poster
+      video.removeAttribute('data-poster')
+    }
     const webmSource = video.dataset.webm
     if (webmSource) {
       const sourceElement = document.createElement('source')
@@ -386,6 +432,12 @@ const setupDeferredImages = () => {
   images.forEach((image) => imageObserver.observe(image))
 }
 setupDeferredImages()
+
+const setupDeferredSectionMedia = () => {
+  runWhenNear(backgroundSection, () => backgroundSection.classList.add('is-education-media-ready'), '1000px 0px')
+  runWhenNear(contactSection, () => contactSection.classList.add('is-contact-media-ready'), '1000px 0px')
+}
+setupDeferredSectionMedia()
 const contactEyebrow = contactSection.querySelector<HTMLElement>('.eyebrow')
 if (contactEyebrow) contactEyebrow.textContent = 'CONTACT / 08'
 
@@ -557,8 +609,8 @@ createHobbyScrollExperience()
 
 const createEducationCountups = () => {
   const targets = [
-    { target: document.querySelector<HTMLElement>('#background .education-rank-main > strong'), value: 70, decimals: 0 },
-    { target: document.querySelector<HTMLElement>('#background .education-rank-side > div:first-child strong'), value: 86.9, decimals: 1 },
+    { target: document.querySelector<HTMLElement>('#background .education-rank-main > strong'), value: 82, decimals: 0 },
+    { target: document.querySelector<HTMLElement>('#background .education-rank-side > div:first-child strong'), value: 83.3, decimals: 1 },
     { target: document.querySelector<HTMLElement>('#background .education-language-scores span:nth-child(1) strong'), value: 554, decimals: 0 },
     { target: document.querySelector<HTMLElement>('#background .education-language-scores span:nth-child(2) strong'), value: 477, decimals: 0 },
   ]
@@ -653,7 +705,7 @@ const createLogoWallMotion = () => {
   if (!reducedMotion) gsap.ticker.add(render)
 }
 
-createLogoWallMotion()
+runWhenNear(document.querySelector('[data-logo-wall]'), createLogoWallMotion)
 
 const createSocialsGallery = () => {
   const gallery = document.querySelector<HTMLElement>('[data-socials-gallery]')
@@ -778,8 +830,6 @@ const createSocialsGallery = () => {
   motionQuery.addEventListener('change', handleMotionChange)
 }
 
-createSocialsGallery()
-
 const createSocialsSymbolRotation = () => {
   const rotator = document.querySelector<HTMLElement>('[data-socials-symbols]')
   const icons = rotator ? [...rotator.querySelectorAll<HTMLImageElement>('.socials-symbol-icon')] : []
@@ -808,7 +858,10 @@ const createSocialsSymbolRotation = () => {
   motionQuery.addEventListener('change', setup)
 }
 
-createSocialsSymbolRotation()
+runWhenNear(socialsSection, () => {
+  createSocialsGallery()
+  createSocialsSymbolRotation()
+})
 
 const createSocialsContactTransition = () => {
   const transition = contactSection.querySelector<HTMLElement>('.contact-transition')
@@ -1115,7 +1168,7 @@ const createCompetitionTimelineGeometry = () => {
   resizeObserver.observe(body)
 }
 
-createCompetitionTimelineGeometry()
+runWhenNear(competitionSection, createCompetitionTimelineGeometry)
 
 const createTiltedSkillCards = async () => {
   // @ts-ignore The component is a JSX module without a local declaration.
@@ -1276,7 +1329,7 @@ const createContactStepper = () => {
   updateControls(); updateHeight(); window.addEventListener('resize', updateHeight); if (document.fonts?.ready) document.fonts.ready.then(updateHeight).catch(() => {})
 }
 
-createContactStepper()
+runWhenNear(contactSection, createContactStepper)
 
 const disableResumeDownload = () => {
   const button = document.querySelector<HTMLElement>('.resume-download-button')
@@ -1291,15 +1344,20 @@ const disableResumeDownload = () => {
 
 disableResumeDownload()
 
-const maskPrivateEducationResults = () => {
+const updateEducationResults = () => {
   const ranking = document.querySelector<HTMLElement>('#background .education-ranking')
   if (!ranking) return
-  ranking.classList.add('education-ranking-masked')
-  ranking.setAttribute('role', 'img')
-  ranking.setAttribute('aria-label', '成绩排名信息已隐藏')
+  const rankTotal = ranking.querySelector<HTMLElement>('.education-rank-main small')
+  const rankPercent = ranking.querySelector<HTMLElement>('.education-rank-main em')
+  const average = ranking.querySelector<HTMLElement>('.education-rank-side > div:first-child strong')
+  if (rankTotal) rankTotal.textContent = '/ 2026'
+  if (rankPercent) rankPercent.textContent = '（39%）'
+  if (average?.firstChild?.nodeType === Node.TEXT_NODE) average.firstChild.textContent = '83.3'
+  ranking.removeAttribute('role')
+  ranking.removeAttribute('aria-label')
 }
 
-maskPrivateEducationResults()
+updateEducationResults()
 
 const heroFrame = document.querySelector<HTMLElement>('.hero-frame')!
 const flipCard = document.querySelector<HTMLElement>('#flip-card')!
@@ -1313,6 +1371,7 @@ const toggleCard = () => {
   document.documentElement.classList.toggle('is-card-flipped', isFlipped)
   heroFrame.setAttribute('aria-pressed', String(isFlipped))
   if (isFlipped) {
+    void createAboutTextReveals()
     const aboutMedia = document.querySelector<HTMLImageElement>('#about-expand-media')
     if (aboutMedia?.dataset.src) {
       aboutMedia.src = aboutMedia.dataset.src
