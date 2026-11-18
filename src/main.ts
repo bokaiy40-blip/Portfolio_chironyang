@@ -373,24 +373,21 @@ const setupDeferredMedia = () => {
     if (shouldPlay) video.play().catch(() => undefined)
   }
   if (!videos.length) return
-  const selectedSocialVideo = socialVideos.find((video) => video.closest('.social-video-card')?.classList.contains('is-selected')) || socialVideos[0]
   const activateSocialVideo = (video: HTMLVideoElement) => {
-    socialVideos.forEach((otherVideo) => {
-      if (otherVideo !== video) otherVideo.pause()
-    })
     loadVideo(video)
   }
+  const activateAllSocialVideos = () => socialVideos.forEach((video) => loadVideo(video))
   socialVideos.forEach((video) => {
     video.closest<HTMLButtonElement>('.social-video-card')?.addEventListener('click', () => activateSocialVideo(video))
   })
   if (!('IntersectionObserver' in window)) {
-    if (selectedSocialVideo) activateSocialVideo(selectedSocialVideo)
+    activateAllSocialVideos()
     deferredVideos.forEach((video) => loadVideo(video))
     return
   }
   const socialObserver = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return
-    if (selectedSocialVideo) activateSocialVideo(selectedSocialVideo)
+    activateAllSocialVideos()
     socialObserver.disconnect()
   }, { rootMargin: '160px 0px' })
   socialObserver.observe(socialsSection)
@@ -1055,19 +1052,50 @@ const createCompetitionPreview = () => {
   const images = [...document.querySelectorAll<HTMLImageElement>('.competition-media img')]
   if (!images.length) return
 
+  type PreviewSlide = { src: string; alt: string }
+  const brochureSlides: PreviewSlide[] = [
+    { src: '/competitions/iot-brochure-01.png', alt: '全国大学生物联网设计竞赛三折页 · 外侧' },
+    { src: '/competitions/iot-brochure-02.png', alt: '全国大学生物联网设计竞赛三折页 · 内侧' },
+  ]
+  const slidesForImage = (image: HTMLImageElement): PreviewSlide[] => {
+    if (image.alt === '全国大学生物联网设计竞赛现场') {
+      return [...brochureSlides, { src: '/competitions/iot-design.webp', alt: '全国大学生物联网设计竞赛现场' }]
+    }
+    return [{ src: image.currentSrc || image.src || image.dataset.src || '', alt: image.alt }]
+  }
+
   const preview = document.createElement('div')
   preview.className = 'competition-preview'
   preview.setAttribute('role', 'dialog')
   preview.setAttribute('aria-modal', 'true')
   preview.setAttribute('aria-hidden', 'true')
-  preview.innerHTML = '<div class="competition-preview-backdrop" data-preview-close></div><div class="competition-preview-panel"><button class="competition-preview-close" type="button" aria-label="关闭图片预览"><span class="span-mother"><span>关</span><span>闭</span></span><span class="span-mother2" aria-hidden="true"><span>关</span><span>闭</span></span></button><img class="competition-preview-image" alt="" /><p class="competition-preview-caption"></p></div>'
+  preview.innerHTML = '<div class="competition-preview-backdrop" data-preview-close></div><div class="competition-preview-panel"><button class="competition-preview-close" type="button" aria-label="关闭图片预览"><span class="span-mother"><span>关</span><span>闭</span></span><span class="span-mother2" aria-hidden="true"><span>关</span><span>闭</span></span></button><div class="competition-preview-media"><button class="competition-preview-nav competition-preview-prev" type="button" aria-label="上一页" hidden>‹</button><img class="competition-preview-image" alt="" /><button class="competition-preview-nav competition-preview-next" type="button" aria-label="下一页" hidden>›</button></div><div class="competition-preview-meta"><p class="competition-preview-caption"></p><span class="competition-preview-counter" aria-live="polite"></span></div></div>'
   document.body.appendChild(preview)
 
   const previewImage = preview.querySelector<HTMLImageElement>('.competition-preview-image')!
   const caption = preview.querySelector<HTMLElement>('.competition-preview-caption')!
+  const counter = preview.querySelector<HTMLElement>('.competition-preview-counter')!
   const closeButton = preview.querySelector<HTMLButtonElement>('.competition-preview-close')!
+  const previousButton = preview.querySelector<HTMLButtonElement>('.competition-preview-prev')!
+  const nextButton = preview.querySelector<HTMLButtonElement>('.competition-preview-next')!
   let lastTrigger: HTMLElement | null = null
   let isOpen = false
+  let activeSlides: PreviewSlide[] = []
+  let activeSlideIndex = 0
+
+  const setSlide = (index: number) => {
+    if (!activeSlides.length) return
+    activeSlideIndex = (index + activeSlides.length) % activeSlides.length
+    const slide = activeSlides[activeSlideIndex]
+    previewImage.src = slide.src
+    previewImage.alt = slide.alt
+    caption.textContent = slide.alt
+    const hasNavigation = activeSlides.length > 1
+    previousButton.hidden = !hasNavigation
+    nextButton.hidden = !hasNavigation
+    counter.hidden = !hasNavigation
+    counter.textContent = hasNavigation ? `${activeSlideIndex + 1} / ${activeSlides.length}` : ''
+  }
 
   const close = () => {
     if (!isOpen) return
@@ -1076,13 +1104,13 @@ const createCompetitionPreview = () => {
     preview.setAttribute('aria-hidden', 'true')
     document.body.classList.remove('competition-preview-open')
     lastTrigger?.focus()
+    activeSlides = []
   }
 
   const open = (image: HTMLImageElement) => {
     lastTrigger = image.parentElement
-    previewImage.src = image.currentSrc || image.src || image.dataset.src || ''
-    previewImage.alt = image.alt
-    caption.textContent = image.alt
+    activeSlides = slidesForImage(image)
+    setSlide(0)
     preview.classList.add('is-open')
     preview.setAttribute('aria-hidden', 'false')
     document.body.classList.add('competition-preview-open')
@@ -1105,8 +1133,16 @@ const createCompetitionPreview = () => {
   })
 
   closeButton.addEventListener('click', close)
+  previousButton.addEventListener('click', () => setSlide(activeSlideIndex - 1))
+  nextButton.addEventListener('click', () => setSlide(activeSlideIndex + 1))
   preview.querySelector<HTMLElement>('[data-preview-close]')?.addEventListener('click', close)
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') close() })
+  document.addEventListener('keydown', (event) => {
+    if (!isOpen) return
+    if (event.key === 'Escape') close()
+    if (activeSlides.length < 2) return
+    if (event.key === 'ArrowLeft') { event.preventDefault(); setSlide(activeSlideIndex - 1) }
+    if (event.key === 'ArrowRight') { event.preventDefault(); setSlide(activeSlideIndex + 1) }
+  })
 }
 
 createCompetitionPreview()

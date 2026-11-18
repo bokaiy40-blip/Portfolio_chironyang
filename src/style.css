@@ -1124,14 +1124,56 @@ html.is-on-dark-section #topography-background .topography-canvas {
   background:transparent;
   box-shadow:none;
 }
+.competition-preview-media {
+  position:relative;
+  display:flex;
+  max-width:100%;
+  align-items:center;
+  justify-content:center;
+}
 .competition-preview-image {
   width:auto;
   max-width:calc(100vw - 48px);
   max-height:78vh;
   background:transparent;
 }
-.competition-preview-caption {
+.competition-preview-nav {
+  position:absolute;
+  top:50%;
+  z-index:3;
+  display:flex;
+  width:48px;
+  height:64px;
+  padding:0;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgb(255 255 255 / 68%);
+  border-radius:999px;
+  color:#050505;
+  background:rgb(255 255 255 / 92%);
+  box-shadow:0 10px 28px rgb(0 0 0 / 18%);
+  cursor:pointer;
+  font-family:Arial,sans-serif;
+  font-size:42px;
+  font-weight:300;
+  line-height:1;
+  transform:translateY(-50%);
+  transition:background-color 180ms ease,transform 180ms ease;
+}
+.competition-preview-nav:hover { background:#d2ff00; }
+.competition-preview-nav:active { transform:translateY(-50%) scale(.94); }
+.competition-preview-nav:focus-visible { outline:2px solid #d2ff00; outline-offset:3px; }
+.competition-preview-prev { left:clamp(10px,2vw,26px); }
+.competition-preview-next { right:clamp(10px,2vw,26px); }
+.competition-preview-meta {
+  display:flex;
   width:100%;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+}
+.competition-preview-caption {
+  width:auto;
   max-width:100%;
   margin:0;
   padding:9px 16px;
@@ -1144,6 +1186,16 @@ html.is-on-dark-section #topography-background .topography-canvas {
   text-align:center;
   text-overflow:ellipsis;
   white-space:nowrap;
+}
+.competition-preview-counter {
+  flex:0 0 auto;
+  padding:9px 12px;
+  border:1px solid rgb(255 255 255 / 36%);
+  color:#111;
+  background:#fff;
+  font-family:'SFMono-Regular',Consolas,'Liberation Mono',monospace;
+  font-size:11px;
+  line-height:1.4;
 }
 .competition-preview-close {
   top:12px;
@@ -1196,6 +1248,9 @@ html.is-on-dark-section #topography-background .topography-canvas {
   }
   .competition-preview-image { max-width:calc(100vw - 24px); max-height:76vh; }
   .competition-preview-caption { padding:8px 10px; font-size:11px; }
+  .competition-preview-nav { width:40px; height:54px; font-size:34px; }
+  .competition-preview-meta { gap:8px; }
+  .competition-preview-counter { padding:8px 9px; font-size:10px; }
   .competition-preview-close { top:8px; right:8px; width:90px; height:41px; }
 }
 
