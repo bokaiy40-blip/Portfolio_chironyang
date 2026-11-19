@@ -1089,6 +1089,17 @@ const createCompetitionPreview = () => {
   let isOpen = false
   let activeSlides: PreviewSlide[] = []
   let activeSlideIndex = 0
+  const preloadedSources = new Set<string>()
+
+  const preloadSlides = (slides: PreviewSlide[]) => {
+    slides.forEach(({ src }) => {
+      if (!src || preloadedSources.has(src)) return
+      preloadedSources.add(src)
+      const image = new Image()
+      image.decoding = 'async'
+      image.src = src
+    })
+  }
 
   const setSlide = (index: number) => {
     if (!activeSlides.length) return
@@ -1102,6 +1113,11 @@ const createCompetitionPreview = () => {
     nextButton.hidden = !hasNavigation
     counter.hidden = !hasNavigation
     counter.textContent = hasNavigation ? `${activeSlideIndex + 1} / ${activeSlides.length}` : ''
+    if (hasNavigation) {
+      const nextSlide = activeSlides[(activeSlideIndex + 1) % activeSlides.length]
+      const previousSlide = activeSlides[(activeSlideIndex - 1 + activeSlides.length) % activeSlides.length]
+      preloadSlides([nextSlide, previousSlide])
+    }
   }
 
   const close = () => {
@@ -1122,6 +1138,7 @@ const createCompetitionPreview = () => {
     preview.setAttribute('aria-hidden', 'false')
     document.body.classList.add('competition-preview-open')
     isOpen = true
+    window.setTimeout(() => preloadSlides(activeSlides), 0)
     closeButton.focus()
   }
 

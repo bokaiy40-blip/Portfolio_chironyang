@@ -1136,6 +1136,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   max-width:calc(100vw - 48px);
   max-height:78vh;
   background:transparent;
+  pointer-events:none;
 }
 .competition-preview-nav {
   position:absolute;
@@ -1157,6 +1158,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   font-size:42px;
   font-weight:300;
   line-height:1;
+  touch-action:manipulation;
   transform:translateY(-50%);
   transition:background-color 180ms ease,transform 180ms ease;
 }
