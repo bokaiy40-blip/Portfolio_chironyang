@@ -12,6 +12,7 @@
 | `public/about-background.jpg` | “关于我”页面滚动展开背景图 | 用户本次提供的图片二 | 用户自有素材 |
 | `public/about-profile-2026.webp` | “关于我”页面右上角证件照 | 用户本次提供的证件照 | 用户自有素材 |
 | `public/competitions/ai-robotics.jpg` | 中国机器人及人工智能大赛 | 用户本次提供的竞赛图片 1 | 用户自有素材 |
+| `public/competitions/robotics-01.png` — `robotics-13.png` | 中国机器人及人工智能大赛结项汇报翻页内容 | 用户本次提供的 PPT 第 1–13 页 | 用户自有素材 |
 | `public/competitions/iot-design.jpg` | 全国大学生物联网设计竞赛 | 用户本次提供的竞赛图片 2 | 用户自有素材 |
 | `public/competitions/iot-brochure-01.png` — `iot-brochure-02.png` | 全国大学生物联网设计竞赛三折页翻页内容 | 用户本次提供的三折页 PDF | 用户自有素材 |
 | `public/competitions/3d-design.jpg` | 全国三维数字化创新设计大赛 | 用户本次提供的竞赛图片 3 | 用户自有素材 |

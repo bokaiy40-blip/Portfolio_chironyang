@@ -1057,7 +1057,14 @@ const createCompetitionPreview = () => {
     { src: '/competitions/iot-brochure-01.png', alt: '全国大学生物联网设计竞赛三折页 · 外侧' },
     { src: '/competitions/iot-brochure-02.png', alt: '全国大学生物联网设计竞赛三折页 · 内侧' },
   ]
+  const roboticsSlides: PreviewSlide[] = Array.from({ length: 13 }, (_, index) => {
+    const page = String(index + 1).padStart(2, '0')
+    return { src: `/competitions/robotics-${page}.png`, alt: `中国机器人及人工智能大赛结项汇报 · 第 ${index + 1} 页` }
+  })
   const slidesForImage = (image: HTMLImageElement): PreviewSlide[] => {
+    if (image.alt === '中国机器人及人工智能大赛团队合影') {
+      return [...roboticsSlides, { src: '/competitions/ai-robotics.webp', alt: '中国机器人及人工智能大赛现场' }]
+    }
     if (image.alt === '全国大学生物联网设计竞赛现场') {
       return [...brochureSlides, { src: '/competitions/iot-design.webp', alt: '全国大学生物联网设计竞赛现场' }]
     }
