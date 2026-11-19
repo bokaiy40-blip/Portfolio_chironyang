@@ -1144,7 +1144,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   display:flex;
   width:48px;
   height:64px;
-  padding:0;
+  padding:0 0 5px;
   align-items:center;
   justify-content:center;
   border:1px solid rgb(255 255 255 / 68%);
@@ -1248,7 +1248,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   }
   .competition-preview-image { max-width:calc(100vw - 24px); max-height:76vh; }
   .competition-preview-caption { padding:8px 10px; font-size:11px; }
-  .competition-preview-nav { width:40px; height:54px; font-size:34px; }
+  .competition-preview-nav { width:40px; height:54px; padding-bottom:4px; font-size:34px; }
   .competition-preview-meta { gap:8px; }
   .competition-preview-counter { padding:8px 9px; font-size:10px; }
   .competition-preview-close { top:8px; right:8px; width:90px; height:41px; }
