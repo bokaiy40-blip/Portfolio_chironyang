@@ -1151,6 +1151,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   background:#050505;
   object-fit:contain;
 }
+.competition-preview-image[hidden], .competition-preview-video[hidden] { display:none; }
 .competition-preview-nav {
   position:absolute;
   top:50%;
