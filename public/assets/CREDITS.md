@@ -28,7 +28,7 @@
 
 | 文件 | 用途 | 来源 | 许可 |
 | --- | --- | --- | --- |
-| `media/embedded-intro.mp4` | 嵌入式芯片与系统设计竞赛项目介绍视频，通过 GitHub Raw 在站外按需加载 | 用户本次提供的视频 | 用户自有素材 |
+| `media/embedded-intro.mp4` | 嵌入式芯片与系统设计竞赛项目介绍视频，在站内预览中按需播放 | 用户本次提供的视频 | 用户自有素材 |
 | `public/resumes/yang-bokai-resume-zh.pdf` | 首页中文简历下载 | 用户本次提供的中文简历 PDF | 用户自有素材 |
 | `public/resumes/yang-bokai-resume-en.pdf` | 首页英文简历下载 | 用户本次提供的英文简历 PDF | 用户自有素材 |
 

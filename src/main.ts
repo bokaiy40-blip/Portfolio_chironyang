@@ -1069,7 +1069,7 @@ const createCompetitionPreview = () => {
 
   type PreviewSlide =
     | { type: 'image'; src: string; alt: string }
-    | { type: 'external-video'; href: string; poster: string; alt: string }
+    | { type: 'video'; src: string; poster: string; alt: string }
   const brochureSlides: PreviewSlide[] = [
     { type: 'image', src: '/competitions/iot-brochure-01.png', alt: '全国大学生物联网设计竞赛三折页 · 外侧' },
     { type: 'image', src: '/competitions/iot-brochure-02.png', alt: '全国大学生物联网设计竞赛三折页 · 内侧' },
@@ -1079,7 +1079,7 @@ const createCompetitionPreview = () => {
     return { type: 'image', src: `/competitions/robotics-${page}.png`, alt: `中国机器人及人工智能大赛结项汇报 · 第 ${index + 1} 页` }
   })
   const embeddedSlides: PreviewSlide[] = [
-    { type: 'external-video', href: 'https://raw.githubusercontent.com/bokaiy40-blip/Portfolio_chironyang/refs/heads/main/media/embedded-intro.mp4', poster: '/competitions/embedded.webp', alt: '嵌入式芯片与系统设计竞赛 · 项目介绍视频（站外观看）' },
+    { type: 'video', src: 'https://raw.githubusercontent.com/bokaiy40-blip/Portfolio_chironyang/refs/heads/main/media/embedded-intro.mp4', poster: '/competitions/embedded.webp', alt: '嵌入式芯片与系统设计竞赛 · 项目介绍视频' },
     { type: 'image', src: '/competitions/embedded.webp', alt: '嵌入式芯片与系统设计竞赛 · 项目展示' },
     { type: 'image', src: '/competitions/embedded-onsite.jpg', alt: '嵌入式芯片与系统设计竞赛 · 全国总决赛现场' },
   ]
@@ -1099,12 +1099,11 @@ const createCompetitionPreview = () => {
   preview.setAttribute('role', 'dialog')
   preview.setAttribute('aria-modal', 'true')
   preview.setAttribute('aria-hidden', 'true')
-  preview.innerHTML = '<div class="competition-preview-backdrop" data-preview-close></div><div class="competition-preview-panel"><button class="competition-preview-close" type="button" aria-label="关闭预览"><span class="span-mother"><span>关</span><span>闭</span></span><span class="span-mother2" aria-hidden="true"><span>关</span><span>闭</span></span></button><div class="competition-preview-media"><button class="competition-preview-nav competition-preview-prev" type="button" aria-label="上一页" hidden>‹</button><img class="competition-preview-image" alt="" /><a class="competition-preview-video-link" target="_blank" rel="noopener noreferrer" hidden><img class="competition-preview-video-poster" alt="" /><span class="competition-preview-video-shade" aria-hidden="true"></span><span class="competition-preview-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z" /></svg></span><span class="competition-preview-video-copy"><strong>观看项目介绍视频</strong><small>在新页面打开 · 按需加载</small></span></a><button class="competition-preview-nav competition-preview-next" type="button" aria-label="下一页" hidden>›</button></div><div class="competition-preview-meta"><p class="competition-preview-caption"></p><span class="competition-preview-counter" aria-live="polite"></span></div></div>'
+  preview.innerHTML = '<div class="competition-preview-backdrop" data-preview-close></div><div class="competition-preview-panel"><button class="competition-preview-close" type="button" aria-label="关闭预览"><span class="span-mother"><span>关</span><span>闭</span></span><span class="span-mother2" aria-hidden="true"><span>关</span><span>闭</span></span></button><div class="competition-preview-media"><button class="competition-preview-nav competition-preview-prev" type="button" aria-label="上一页" hidden>‹</button><img class="competition-preview-image" alt="" /><video class="competition-preview-video" controls playsinline preload="metadata" hidden></video><button class="competition-preview-nav competition-preview-next" type="button" aria-label="下一页" hidden>›</button></div><div class="competition-preview-meta"><p class="competition-preview-caption"></p><span class="competition-preview-counter" aria-live="polite"></span></div></div>'
   document.body.appendChild(preview)
 
   const previewImage = preview.querySelector<HTMLImageElement>('.competition-preview-image')!
-  const previewVideoLink = preview.querySelector<HTMLAnchorElement>('.competition-preview-video-link')!
-  const previewVideoPoster = preview.querySelector<HTMLImageElement>('.competition-preview-video-poster')!
+  const previewVideo = preview.querySelector<HTMLVideoElement>('.competition-preview-video')!
   const caption = preview.querySelector<HTMLElement>('.competition-preview-caption')!
   const counter = preview.querySelector<HTMLElement>('.competition-preview-counter')!
   const closeButton = preview.querySelector<HTMLButtonElement>('.competition-preview-close')!
@@ -1132,14 +1131,18 @@ const createCompetitionPreview = () => {
     if (!activeSlides.length) return
     activeSlideIndex = (index + activeSlides.length) % activeSlides.length
     const slide = activeSlides[activeSlideIndex]
-    const isVideo = slide.type === 'external-video'
+    const isVideo = slide.type === 'video'
     previewImage.hidden = isVideo
-    previewVideoLink.hidden = !isVideo
-    if (slide.type === 'external-video') {
-      previewVideoLink.href = slide.href
-      previewVideoLink.setAttribute('aria-label', slide.alt)
-      previewVideoPoster.src = slide.poster
-      previewVideoPoster.alt = ''
+    previewVideo.hidden = !isVideo
+    previewVideo.pause()
+    previewVideo.removeAttribute('src')
+    previewVideo.removeAttribute('poster')
+    previewVideo.load()
+    if (slide.type === 'video') {
+      previewVideo.src = slide.src
+      previewVideo.poster = slide.poster
+      previewVideo.setAttribute('aria-label', slide.alt)
+      previewVideo.load()
     } else {
       previewImage.src = slide.src
       previewImage.alt = slide.alt
@@ -1163,6 +1166,9 @@ const createCompetitionPreview = () => {
     preview.classList.remove('is-open')
     preview.setAttribute('aria-hidden', 'true')
     document.body.classList.remove('competition-preview-open')
+    previewVideo.pause()
+    previewVideo.removeAttribute('src')
+    previewVideo.load()
     smoothScroll.start()
     lastTrigger?.focus()
     activeSlides = []
