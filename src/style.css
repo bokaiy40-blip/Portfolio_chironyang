@@ -1149,7 +1149,7 @@ html.is-on-dark-section #topography-background .topography-canvas {
   width:min(860px,calc(100vw - 96px));
   max-height:70vh;
   background:#050505;
-  object-fit:contain;
+  object-fit:cover;
 }
 .competition-preview-image[hidden], .competition-preview-video[hidden] { display:none; }
 .competition-preview-nav {
