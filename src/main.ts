@@ -208,7 +208,7 @@ requestAnimationFrame(() => requestAnimationFrame(() => {
   createTopography(topographyBackground)
 }))
 const aboutProfileImage = app.querySelector<HTMLImageElement>('.about-reference-head .profile-image')
-if (aboutProfileImage) aboutProfileImage.src = '/about-profile-2026.webp'
+if (aboutProfileImage) aboutProfileImage.src = '/about-profile-2026.png'
 document.querySelectorAll<HTMLElement>('[data-about-reveal]').forEach((target) => {
   target.textContent = target.dataset.aboutReveal || ''
 })
