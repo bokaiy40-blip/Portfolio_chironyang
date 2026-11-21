@@ -1,6 +1,8 @@
 import './style.css'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
+import 'lenis/dist/lenis.css'
 import { createElement } from 'react'
 import { flushSync } from 'react-dom'
 import { createRoot } from 'react-dom/client'
@@ -8,6 +10,19 @@ import StaggeredMenu, { type StaggeredMenuItem } from './components/StaggeredMen
 import { createTopography } from './topography'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const smoothScroll = new Lenis({
+  anchors: true,
+  lerp: 0.09,
+  smoothWheel: true,
+  syncTouch: false,
+  wheelMultiplier: 0.92,
+  respectReducedMotion: true,
+  prevent: (node) => Boolean(node.closest('.about-face, .competition-preview, [data-lenis-prevent]')),
+})
+smoothScroll.on('scroll', ScrollTrigger.update)
+gsap.ticker.add((time) => smoothScroll.raf(time * 1000))
+gsap.ticker.lagSmoothing(0)
 
 const app = document.querySelector<HTMLDivElement>('#app')
 if (!app) throw new Error('App root is missing')
@@ -1052,23 +1067,31 @@ const createCompetitionPreview = () => {
   const images = [...document.querySelectorAll<HTMLImageElement>('.competition-media img')]
   if (!images.length) return
 
-  type PreviewSlide = { src: string; alt: string }
+  type PreviewSlide =
+    | { type: 'image'; src: string; alt: string }
+    | { type: 'external-video'; href: string; poster: string; alt: string }
   const brochureSlides: PreviewSlide[] = [
-    { src: '/competitions/iot-brochure-01.png', alt: '全国大学生物联网设计竞赛三折页 · 外侧' },
-    { src: '/competitions/iot-brochure-02.png', alt: '全国大学生物联网设计竞赛三折页 · 内侧' },
+    { type: 'image', src: '/competitions/iot-brochure-01.png', alt: '全国大学生物联网设计竞赛三折页 · 外侧' },
+    { type: 'image', src: '/competitions/iot-brochure-02.png', alt: '全国大学生物联网设计竞赛三折页 · 内侧' },
   ]
   const roboticsSlides: PreviewSlide[] = Array.from({ length: 13 }, (_, index) => {
     const page = String(index + 1).padStart(2, '0')
-    return { src: `/competitions/robotics-${page}.png`, alt: `中国机器人及人工智能大赛结项汇报 · 第 ${index + 1} 页` }
+    return { type: 'image', src: `/competitions/robotics-${page}.png`, alt: `中国机器人及人工智能大赛结项汇报 · 第 ${index + 1} 页` }
   })
+  const embeddedSlides: PreviewSlide[] = [
+    { type: 'external-video', href: 'https://raw.githubusercontent.com/bokaiy40-blip/Portfolio_chironyang/refs/heads/main/media/embedded-intro.mp4', poster: '/competitions/embedded.webp', alt: '嵌入式芯片与系统设计竞赛 · 项目介绍视频（站外观看）' },
+    { type: 'image', src: '/competitions/embedded.webp', alt: '嵌入式芯片与系统设计竞赛 · 项目展示' },
+    { type: 'image', src: '/competitions/embedded-onsite.jpg', alt: '嵌入式芯片与系统设计竞赛 · 全国总决赛现场' },
+  ]
   const slidesForImage = (image: HTMLImageElement): PreviewSlide[] => {
     if (image.alt === '中国机器人及人工智能大赛团队合影') {
-      return [...roboticsSlides, { src: '/competitions/ai-robotics.webp', alt: '中国机器人及人工智能大赛现场' }]
+      return [...roboticsSlides, { type: 'image', src: '/competitions/ai-robotics.webp', alt: '中国机器人及人工智能大赛现场' }]
     }
     if (image.alt === '全国大学生物联网设计竞赛现场') {
-      return [...brochureSlides, { src: '/competitions/iot-design.webp', alt: '全国大学生物联网设计竞赛现场' }]
+      return [...brochureSlides, { type: 'image', src: '/competitions/iot-design.webp', alt: '全国大学生物联网设计竞赛现场' }]
     }
-    return [{ src: image.currentSrc || image.src || image.dataset.src || '', alt: image.alt }]
+    if (image.alt === '全国大学生嵌入式芯片与系统设计竞赛现场') return embeddedSlides
+    return [{ type: 'image', src: image.currentSrc || image.src || image.dataset.src || '', alt: image.alt }]
   }
 
   const preview = document.createElement('div')
@@ -1076,10 +1099,12 @@ const createCompetitionPreview = () => {
   preview.setAttribute('role', 'dialog')
   preview.setAttribute('aria-modal', 'true')
   preview.setAttribute('aria-hidden', 'true')
-  preview.innerHTML = '<div class="competition-preview-backdrop" data-preview-close></div><div class="competition-preview-panel"><button class="competition-preview-close" type="button" aria-label="关闭图片预览"><span class="span-mother"><span>关</span><span>闭</span></span><span class="span-mother2" aria-hidden="true"><span>关</span><span>闭</span></span></button><div class="competition-preview-media"><button class="competition-preview-nav competition-preview-prev" type="button" aria-label="上一页" hidden>‹</button><img class="competition-preview-image" alt="" /><button class="competition-preview-nav competition-preview-next" type="button" aria-label="下一页" hidden>›</button></div><div class="competition-preview-meta"><p class="competition-preview-caption"></p><span class="competition-preview-counter" aria-live="polite"></span></div></div>'
+  preview.innerHTML = '<div class="competition-preview-backdrop" data-preview-close></div><div class="competition-preview-panel"><button class="competition-preview-close" type="button" aria-label="关闭预览"><span class="span-mother"><span>关</span><span>闭</span></span><span class="span-mother2" aria-hidden="true"><span>关</span><span>闭</span></span></button><div class="competition-preview-media"><button class="competition-preview-nav competition-preview-prev" type="button" aria-label="上一页" hidden>‹</button><img class="competition-preview-image" alt="" /><a class="competition-preview-video-link" target="_blank" rel="noopener noreferrer" hidden><img class="competition-preview-video-poster" alt="" /><span class="competition-preview-video-shade" aria-hidden="true"></span><span class="competition-preview-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7Z" /></svg></span><span class="competition-preview-video-copy"><strong>观看项目介绍视频</strong><small>在新页面打开 · 按需加载</small></span></a><button class="competition-preview-nav competition-preview-next" type="button" aria-label="下一页" hidden>›</button></div><div class="competition-preview-meta"><p class="competition-preview-caption"></p><span class="competition-preview-counter" aria-live="polite"></span></div></div>'
   document.body.appendChild(preview)
 
   const previewImage = preview.querySelector<HTMLImageElement>('.competition-preview-image')!
+  const previewVideoLink = preview.querySelector<HTMLAnchorElement>('.competition-preview-video-link')!
+  const previewVideoPoster = preview.querySelector<HTMLImageElement>('.competition-preview-video-poster')!
   const caption = preview.querySelector<HTMLElement>('.competition-preview-caption')!
   const counter = preview.querySelector<HTMLElement>('.competition-preview-counter')!
   const closeButton = preview.querySelector<HTMLButtonElement>('.competition-preview-close')!
@@ -1092,7 +1117,9 @@ const createCompetitionPreview = () => {
   const preloadedSources = new Set<string>()
 
   const preloadSlides = (slides: PreviewSlide[]) => {
-    slides.forEach(({ src }) => {
+    slides.forEach((slide) => {
+      if (slide.type !== 'image') return
+      const { src } = slide
       if (!src || preloadedSources.has(src)) return
       preloadedSources.add(src)
       const image = new Image()
@@ -1105,8 +1132,18 @@ const createCompetitionPreview = () => {
     if (!activeSlides.length) return
     activeSlideIndex = (index + activeSlides.length) % activeSlides.length
     const slide = activeSlides[activeSlideIndex]
-    previewImage.src = slide.src
-    previewImage.alt = slide.alt
+    const isVideo = slide.type === 'external-video'
+    previewImage.hidden = isVideo
+    previewVideoLink.hidden = !isVideo
+    if (slide.type === 'external-video') {
+      previewVideoLink.href = slide.href
+      previewVideoLink.setAttribute('aria-label', slide.alt)
+      previewVideoPoster.src = slide.poster
+      previewVideoPoster.alt = ''
+    } else {
+      previewImage.src = slide.src
+      previewImage.alt = slide.alt
+    }
     caption.textContent = slide.alt
     const hasNavigation = activeSlides.length > 1
     previousButton.hidden = !hasNavigation
@@ -1126,6 +1163,7 @@ const createCompetitionPreview = () => {
     preview.classList.remove('is-open')
     preview.setAttribute('aria-hidden', 'true')
     document.body.classList.remove('competition-preview-open')
+    smoothScroll.start()
     lastTrigger?.focus()
     activeSlides = []
   }
@@ -1137,6 +1175,7 @@ const createCompetitionPreview = () => {
     preview.classList.add('is-open')
     preview.setAttribute('aria-hidden', 'false')
     document.body.classList.add('competition-preview-open')
+    smoothScroll.stop()
     isOpen = true
     window.setTimeout(() => preloadSlides(activeSlides), 0)
     closeButton.focus()
@@ -1391,18 +1430,58 @@ const createContactStepper = () => {
 
 runWhenNear(contactSection, createContactStepper)
 
-const disableResumeDownload = () => {
-  const button = document.querySelector<HTMLElement>('.resume-download-button')
+const setupResumeDownloads = () => {
+  const button = document.querySelector<HTMLAnchorElement>('.resume-download-button')
   if (!button) return
-  if (button instanceof HTMLAnchorElement) {
-    button.removeAttribute('href')
-    button.removeAttribute('download')
-    button.setAttribute('role', 'button')
+  button.removeAttribute('href')
+  button.removeAttribute('download')
+  button.setAttribute('role', 'button')
+  button.setAttribute('tabindex', '0')
+  button.setAttribute('aria-haspopup', 'menu')
+  button.setAttribute('aria-expanded', 'false')
+  button.setAttribute('aria-controls', 'resume-download-menu')
+  document.body.insertAdjacentHTML('beforeend', '<div class="resume-download-menu" id="resume-download-menu" role="menu" aria-hidden="true"><a href="/resumes/yang-bokai-resume-zh.pdf" download="杨博开中文简历.pdf" role="menuitem"><span>中文简历</span><small>PDF · 中文</small></a><a href="/resumes/yang-bokai-resume-en.pdf" download="Yang-Bokai-CV-English.pdf" role="menuitem"><span>English CV</span><small>PDF · EN</small></a></div>')
+  const menu = document.querySelector<HTMLElement>('#resume-download-menu')!
+  const links = [...menu.querySelectorAll<HTMLAnchorElement>('a')]
+  const positionMenu = () => {
+    const rect = button.getBoundingClientRect()
+    menu.style.setProperty('--resume-menu-x', `${rect.left + rect.width * .5}px`)
+    menu.style.setProperty('--resume-menu-y', `${rect.top - 10}px`)
   }
-  button.addEventListener('click', (event) => event.preventDefault())
+  const setOpen = (open: boolean) => {
+    if (open) positionMenu()
+    menu.classList.toggle('is-open', open)
+    menu.setAttribute('aria-hidden', String(!open))
+    button.setAttribute('aria-expanded', String(open))
+    if (open) {
+      void menu.offsetWidth
+      links[0]?.focus({ preventScroll: true })
+    }
+  }
+  const toggle = (event: Event) => {
+    event.preventDefault()
+    event.stopPropagation()
+    setOpen(!menu.classList.contains('is-open'))
+  }
+  button.addEventListener('click', toggle)
+  button.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    toggle(event)
+  })
+  links.forEach((link) => link.addEventListener('click', () => setOpen(false)))
+  document.addEventListener('click', (event) => {
+    if ((event.target as HTMLElement).closest('.resume-download-button, .resume-download-menu')) return
+    setOpen(false)
+  })
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !menu.classList.contains('is-open')) return
+    setOpen(false)
+    button.focus()
+  })
+  window.addEventListener('resize', () => { if (menu.classList.contains('is-open')) positionMenu() })
 }
 
-disableResumeDownload()
+setupResumeDownloads()
 
 const updateEducationResults = () => {
   const ranking = document.querySelector<HTMLElement>('#background .education-ranking')
@@ -1410,9 +1489,16 @@ const updateEducationResults = () => {
   const rankTotal = ranking.querySelector<HTMLElement>('.education-rank-main small')
   const rankPercent = ranking.querySelector<HTMLElement>('.education-rank-main em')
   const average = ranking.querySelector<HTMLElement>('.education-rank-side > div:first-child strong')
-  if (rankTotal) rankTotal.textContent = '/ 2026'
+  const roles = [...document.querySelectorAll<HTMLElement>('#background .education-role')]
+  const firstRoleTitle = roles[0]?.querySelector<HTMLElement>('h3')
+  const secondRoleTime = roles[1]?.querySelector<HTMLElement>('time')
+  const secondRoleTitle = roles[1]?.querySelector<HTMLElement>('h3')
+  if (rankTotal) rankTotal.textContent = '/ 206'
   if (rankPercent) rankPercent.textContent = '（39%）'
   if (average?.firstChild?.nodeType === Node.TEXT_NODE) average.firstChild.textContent = '83.3'
+  if (firstRoleTitle) firstRoleTitle.textContent = '机日2301班 宣传委员'
+  if (secondRoleTime) secondRoleTime.textContent = '2023.09 — 2024.09'
+  if (secondRoleTitle) secondRoleTitle.textContent = '大连理工大学融媒体中心'
   ranking.removeAttribute('role')
   ranking.removeAttribute('aria-label')
 }

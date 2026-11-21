@@ -106,8 +106,14 @@ html.is-card-flipped .site-header .header-actions { visibility:hidden; opacity:0
 .resume-download-button:hover .resume-span-mother2 span { transform:translateY(0); }
 .resume-download-button.is-lens-active { color:#050505; background:#fff; box-shadow:0 8px 22px rgb(0 0 0 / 20%); }
 .resume-download-button.is-lens-active:hover { color:#050505; background:#fff; }
+.resume-download-menu { position:fixed; top:var(--resume-menu-y,50%); left:var(--resume-menu-x,50%); z-index:110; display:grid; visibility:hidden; width:min(228px,calc(100vw - 32px)); padding:6px; gap:4px; border:1px solid rgb(255 255 255 / 34%); border-radius:18px; background:rgb(5 5 5 / 92%); box-shadow:0 18px 45px rgb(0 0 0 / 24%); opacity:0; pointer-events:none; transform:translate(-50%,calc(-100% + 8px)); transition:opacity .2s ease,visibility .2s ease,transform .2s ease; }
+.resume-download-menu.is-open { visibility:visible; opacity:1; pointer-events:auto; transform:translate(-50%,-100%); }
+.resume-download-menu a { display:flex; min-height:52px; padding:9px 12px; align-items:center; justify-content:space-between; gap:18px; border-radius:12px; color:#f5f5f5; text-decoration:none; transition:color .18s ease,background-color .18s ease; }
+.resume-download-menu a:hover,.resume-download-menu a:focus-visible { color:#050505; background:#d2ff00; outline:none; }
+.resume-download-menu a span { font-size:13px; font-weight:700; }
+.resume-download-menu a small { color:currentColor; font-size:9px; font-weight:500; letter-spacing:.08em; opacity:.7; }
 @media (max-width:600px) { .resume-download-button { bottom:clamp(70px,12vh,100px); min-width:142px; height:42px; padding:0 14px; gap:6px; font-size:13px; } .resume-download-button > svg { width:19px; height:19px; flex-basis:19px; } .resume-download-label { width:52px; } }
-@media (prefers-reduced-motion:reduce) { .resume-download-button,.resume-download-label .resume-span-mother span,.resume-download-label .resume-span-mother2 span { transition:none; } .resume-download-button:hover .resume-download-arrow { animation:none; } }
+@media (prefers-reduced-motion:reduce) { .resume-download-button,.resume-download-label .resume-span-mother span,.resume-download-label .resume-span-mother2 span,.resume-download-menu { transition:none; } .resume-download-button:hover .resume-download-arrow { animation:none; } }
 /* Keep each competition image at its natural ratio so the media frame has no vertical letterboxing. */
 .competition-grid { align-items:start; }
 .competition-card { min-height:0; align-items:stretch; }
@@ -1138,6 +1144,61 @@ html.is-on-dark-section #topography-background .topography-canvas {
   background:transparent;
   pointer-events:none;
 }
+.competition-preview-video-link {
+  position:relative;
+  display:block;
+  width:min(1120px,calc(100vw - 48px));
+  overflow:hidden;
+  aspect-ratio:16 / 9;
+  color:#fff;
+  background:#050505;
+  text-decoration:none;
+}
+.competition-preview-video-link[hidden] { display:none; }
+.competition-preview-video-poster {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.88) contrast(1.04);
+  transition:transform 420ms cubic-bezier(.22,1,.36,1),filter 220ms ease;
+}
+.competition-preview-video-shade {
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgb(0 0 0 / 18%),rgb(0 0 0 / 16%) 48%,rgb(0 0 0 / 72%));
+}
+.competition-preview-video-play {
+  position:absolute;
+  top:50%;
+  left:50%;
+  display:grid;
+  width:clamp(68px,7vw,104px);
+  aspect-ratio:1;
+  place-items:center;
+  border-radius:50%;
+  color:#050505;
+  background:#d2ff00;
+  box-shadow:0 14px 40px rgb(0 0 0 / 25%);
+  transform:translate(-50%,-50%);
+  transition:transform 220ms cubic-bezier(.22,1,.36,1);
+}
+.competition-preview-video-play svg { width:36%; fill:currentColor; transform:translateX(5%); }
+.competition-preview-video-copy {
+  position:absolute;
+  right:clamp(20px,3vw,42px);
+  bottom:clamp(18px,3vw,36px);
+  left:clamp(20px,3vw,42px);
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+}
+.competition-preview-video-copy strong { font-size:clamp(19px,2.2vw,34px); line-height:1; letter-spacing:-.035em; }
+.competition-preview-video-copy small { font-size:10px; letter-spacing:.12em; white-space:nowrap; opacity:.72; }
+.competition-preview-video-link:hover .competition-preview-video-poster { filter:saturate(1) contrast(1.08); transform:scale(1.02); }
+.competition-preview-video-link:hover .competition-preview-video-play { transform:translate(-50%,-50%) scale(1.06); }
+.competition-preview-video-link:focus-visible { outline:3px solid #d2ff00; outline-offset:4px; }
 .competition-preview-nav {
   position:absolute;
   top:50%;
@@ -1240,7 +1301,10 @@ html.is-on-dark-section #topography-background .topography-canvas {
 .competition-preview-close:focus-visible { outline:2px solid #050505; outline-offset:3px; }
 @media (prefers-reduced-motion:reduce) {
   .competition-preview-close .span-mother span,
-  .competition-preview-close .span-mother2 span { transition:none; transform:none; }
+  .competition-preview-close .span-mother2 span,
+  .competition-preview-video-poster,
+  .competition-preview-video-play { transition:none; transform:none; }
+  .competition-preview-video-play { transform:translate(-50%,-50%); }
 }
 @media (max-width:600px) {
   .competition-preview-panel {
@@ -1249,6 +1313,9 @@ html.is-on-dark-section #topography-background .topography-canvas {
     padding-top:0;
   }
   .competition-preview-image { max-width:calc(100vw - 24px); max-height:76vh; }
+  .competition-preview-video-link { width:calc(100vw - 24px); }
+  .competition-preview-video-copy { align-items:flex-start; flex-direction:column; gap:6px; }
+  .competition-preview-video-copy small { font-size:8px; }
   .competition-preview-caption { padding:8px 10px; font-size:11px; }
   .competition-preview-nav { width:40px; height:54px; padding-bottom:4px; font-size:34px; }
   .competition-preview-meta { gap:8px; }
@@ -4050,6 +4117,13 @@ html.is-on-dark-section #topography-background .topography-canvas {
   object-fit:cover;
   user-select:none;
   -webkit-user-drag:none;
+}
+
+/* Crop the decoded edge band that some Chromium/GPU combinations show as a
+   bright line on the yo-yo clips. */
+#hobbies .hobby-yoyo-media video {
+  clip-path:inset(4px 0 0 0);
+  backface-visibility:hidden;
 }
 
 #hobbies .hobby-yoyo-media--feature {

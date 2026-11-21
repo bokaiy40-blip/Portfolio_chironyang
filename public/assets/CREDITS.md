@@ -17,11 +17,20 @@
 | `public/competitions/iot-brochure-01.png` — `iot-brochure-02.png` | 全国大学生物联网设计竞赛三折页翻页内容 | 用户本次提供的三折页 PDF | 用户自有素材 |
 | `public/competitions/3d-design.jpg` | 全国三维数字化创新设计大赛 | 用户本次提供的竞赛图片 3 | 用户自有素材 |
 | `public/competitions/embedded.jpg` | 全国大学生嵌入式芯片与系统设计竞赛 | 用户本次提供的竞赛图片 4 | 用户自有素材 |
+| `public/competitions/embedded-onsite.jpg` | 全国大学生嵌入式芯片与系统设计竞赛全国总决赛现场照 | 用户本次提供的现场照片 | 用户自有素材 |
 | `public/hobbies/photography/*.jpg` | 摄影与旅游区域的照片素材 | 用户本次提供的摄影照片 | 用户自有素材 |
 | `public/hobbies/photography/photo-wall/*` | 摄影照片墙新增卡片素材 | 用户本次提供的摄影照片 | 用户自有素材 |
 | `public/hobbies/yo-yo/*` | 悠悠球爱好区域的图片与循环视频 | 用户本次提供的悠悠球图片与视频 | 用户自有素材 |
 | `public/lanyard-card.jpg` | 联系我按钮展开的交互工牌正面 | 用户本次提供的证件卡照片 | 用户自有素材 |
 | `public/skills/skill-01.svg` — `skill-04.svg` | 能力系统 TiltedCard 的本地抽象视觉 | 本地制作的 SVG 图形 | 本项目原创 |
+
+### 文档与视频
+
+| 文件 | 用途 | 来源 | 许可 |
+| --- | --- | --- | --- |
+| `media/embedded-intro.mp4` | 嵌入式芯片与系统设计竞赛项目介绍视频，通过 GitHub Raw 在站外按需加载 | 用户本次提供的视频 | 用户自有素材 |
+| `public/resumes/yang-bokai-resume-zh.pdf` | 首页中文简历下载 | 用户本次提供的中文简历 PDF | 用户自有素材 |
+| `public/resumes/yang-bokai-resume-en.pdf` | 首页英文简历下载 | 用户本次提供的英文简历 PDF | 用户自有素材 |
 
 ### 字体
 
@@ -39,3 +48,4 @@
 | `Stack.jsx` / `Stack.css` | 摄影区域交互照片墙组件 | React Bits（按用户请求接入） | 以 React Bits 发布条款为准 |
 | `Lanyard.jsx` / `card.glb` / `lanyard.png` | 联系我按钮展开的 3D 工牌组件与模型 | React Bits（按用户请求接入） | 以 React Bits 发布条款为准 |
 | `motion` | Stack 卡片拖拽、弹簧与层叠动画 | <https://motion.dev/> | MIT License |
+| `lenis` | 鼠标滚轮惯性与 GSAP ScrollTrigger 同步 | <https://github.com/darkroomengineering/lenis> | MIT License |
